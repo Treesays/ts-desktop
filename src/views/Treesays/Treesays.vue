@@ -1,323 +1,512 @@
 <template>
-    <div class="hc-container">
-        <div class="hc-posts">
-            <el-tabs v-model="activeName" @tab-click="handleClick">
-                <el-tab-pane label="热门" name="all">
-                    <div v-for="post in posts" :key="post.id" class="hc-post-layout">
-                        <div class="hc-post-item">
-                            <div class="left-section">
-                                <h3>{{ post.title }}</h3>
-                                <span>求助内容: {{ post.content }}</span>
-                                <div class="post-info">
-                                    <span>区域: {{ post.region }}</span>
-                                    <span>发布人: {{ post.author }}</span>
-                                </div>
-                            </div>
-                            <div class="right-section">
-                                <el-button type="primary">查看详情</el-button>
-                            </div>
-                        </div>
-                    </div>
-                </el-tab-pane>
-                <el-tab-pane label="最新" name="inAuth">
-                    <div v-for="post in inAuthPosts" :key="post.id" class="hc-post-layout">
-                        <div class="hc-post-item">
-                            <div class="left-section">
-                                <h3>{{ post.title }}</h3>
-                                <span>求助内容: {{ post.content }}</span>
-                                <div class="post-info">
-                                    <span>区域: {{ post.region }}</span>
-                                    <span>发布人: {{ post.author }}</span>
-                                </div>
-                            </div>
-                            <div class="right-section">
-                                <el-button type="primary">查看详情</el-button>
-                            </div>
-                        </div>
-                    </div>
-                </el-tab-pane>
-            </el-tabs>
-        </div>
-        <div class="hc-form">
-            <h3>快速发布求助信息</h3>
-            <el-form ref="hcForm" :rules="rules" label-position="top" label-width="80px" :model="hcPostForm">
-                <el-form-item prop="title" label="求助标题">
-                    <el-input v-model="hcPostForm.title" />
-                </el-form-item>
-                <el-form-item prop="content" label="求助内容">
-                    <el-input v-model="hcPostForm.content" type="textarea" :rows="7" />
-                </el-form-item>
-                <el-form-item prop="region" label="所在区域">
-                    <el-select v-model="hcPostForm.region" placeholder="请选择所在区域">
-                        <el-option label="区域一" value="shanghai" />
-                        <el-option label="区域二" value="beijing" />
-                    </el-select>
-                </el-form-item>
-                <el-form-item prop="detailedAddr" label="详细地址">
-                    <el-input v-model="hcPostForm.detailedAddr" />
-                </el-form-item>
-                <el-form-item prop="contactPerson" label="联系人">
-                    <el-input v-model="hcPostForm.contactPerson" />
-                </el-form-item>
-                <el-form-item prop="contactDetail" label="联系方式">
-                    <el-input v-model="hcPostForm.contactDetail" />
-                </el-form-item>
-                <el-form-item>
-                    <el-button type="primary" @click="submitForm('hcForm')">提交</el-button>
-                    <el-button @click="resetForm('hcForm')">重置</el-button>
-                </el-form-item>
-            </el-form>
-        </div>
+  <div class="hc-container">
+    <div class="hc-posts">
+      <el-tabs v-model="activeName" @tab-click="handleClick">
+        <el-tab-pane label="热门" name="all">
+          <div v-for="post in hotPosts" :key="post.id" class="hc-post-layout">
+            <div class="hc-post-item">
+              <div class="user-info">
+                <div class="user-avatar">
+                  <el-avatar
+                    src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
+                  ></el-avatar>
+                </div>
+                <div class="author-info">
+                  <h3>{{post.authorInfo.name}}</h3>
+                  <span>{{post.authorInfo.position}} @</span>
+                  <span>{{post.authorInfo.company}}</span>
+                </div>
+              </div>
+              <div class="post-content">
+                <span>{{post.content}}</span>
+              </div>
+              <div class="post-tags">
+                <el-tag
+                  v-for="category in post.categories"
+                  :key="category.id"
+                  size="small"
+                  effect="plain"
+                >{{ category.name }}</el-tag>
+              </div>
+              <div class="post-stats">
+                <span>赞</span>
+                <el-divider class="post-stats-divider" direction="vertical"></el-divider>
+                <span>评论</span>
+                <el-divider class="post-stats-divider" direction="vertical"></el-divider>
+                <span>分享</span>
+              </div>
+            </div>
+          </div>
+        </el-tab-pane>
+        <el-tab-pane label="最新" name="inAuth">
+          <div v-for="post in newPosts" :key="post.id" class="hc-post-layout">
+            <div class="hc-post-item">
+              <div class="user-info">
+                <div class="user-avatar">
+                  <el-avatar
+                    src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
+                  ></el-avatar>
+                </div>
+                <div class="author-info">
+                  <h3>{{post.authorInfo.name}}</h3>
+                  <span>{{post.authorInfo.position}} @</span>
+                  <span>{{post.authorInfo.company}}</span>
+                </div>
+              </div>
+              <div class="post-content">
+                <span>{{post.content}}</span>
+              </div>
+              <div class="post-tags">
+                <el-tag
+                  v-for="category in post.categories"
+                  :key="category.id"
+                  size="small"
+                  effect="plain"
+                >{{ category.name }}</el-tag>
+              </div>
+              <div class="post-stats">
+                <span>赞</span>
+                <el-divider class="post-stats-divider" direction="vertical"></el-divider>
+                <span>评论</span>
+                <el-divider class="post-stats-divider" direction="vertical"></el-divider>
+                <span>分享</span>
+              </div>
+            </div>
+          </div>
+        </el-tab-pane>
+      </el-tabs>
     </div>
+    <div class="hc-form">
+      <h3>快速发布求助信息</h3>
+      <el-form
+        ref="hcForm"
+        :rules="rules"
+        label-position="top"
+        label-width="80px"
+        :model="hcPostForm"
+      >
+        <el-form-item prop="title" label="求助标题">
+          <el-input v-model="hcPostForm.title" />
+        </el-form-item>
+        <el-form-item prop="content" label="求助内容">
+          <el-input v-model="hcPostForm.content" type="textarea" :rows="7" />
+        </el-form-item>
+        <el-form-item prop="region" label="所在区域">
+          <el-select v-model="hcPostForm.region" placeholder="请选择所在区域">
+            <el-option label="区域一" value="shanghai" />
+            <el-option label="区域二" value="beijing" />
+          </el-select>
+        </el-form-item>
+        <el-form-item prop="detailedAddr" label="详细地址">
+          <el-input v-model="hcPostForm.detailedAddr" />
+        </el-form-item>
+        <el-form-item prop="contactPerson" label="联系人">
+          <el-input v-model="hcPostForm.contactPerson" />
+        </el-form-item>
+        <el-form-item prop="contactDetail" label="联系方式">
+          <el-input v-model="hcPostForm.contactDetail" />
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="submitForm('hcForm')">提交</el-button>
+          <el-button @click="resetForm('hcForm')">重置</el-button>
+        </el-form-item>
+      </el-form>
+    </div>
+  </div>
 </template>
 
 <script>
 import "./overwrite.css";
 export default {
-    name: "Treesays",
-    data() {
-        return {
-            activeName: "all",
-            labelPosition1: "top",
-            labelPosition2: "left",
-            hcPostForm: {
-                title: "",
-                content: "",
-                region: "",
-                detailedAddr: "",
-                contactPerson: "",
-                contactDetail: ""
-            },
-            rules: {
-                title: [
-                    {
-                        required: true,
-                        message: "请输入求助标题",
-                        trigger: "blur"
-                    },
-                    {
-                        min: 3,
-                        max: 20,
-                        message: "长度在 3 到 20 个字符",
-                        trigger: "blur"
-                    }
-                ],
-                content: [
-                    {
-                        required: true,
-                        message: "请输入求助内容",
-                        trigger: "blur"
-                    },
-                    {
-                        min: 15,
-                        max: 2000,
-                        message: "长度在 15 到 2000 个字符",
-                        trigger: "blur"
-                    }
-                ],
-                region: [
-                    {
-                        required: true,
-                        message: "请输入所在区域",
-                        trigger: "change"
-                    }
-                ],
-                detailedAddr: [
-                    {
-                        required: true,
-                        message: "请输入详细地址",
-                        trigger: "blur"
-                    },
-                    {
-                        min: 8,
-                        max: 50,
-                        message: "长度在 8 到 50 个字符",
-                        trigger: "blur"
-                    }
-                ],
-                contactPerson: [
-                    {
-                        required: true,
-                        message: "请输入联系人",
-                        trigger: "blur"
-                    },
-                    {
-                        min: 3,
-                        max: 10,
-                        message: "长度在 3 到 10 个字符",
-                        trigger: "blur"
-                    }
-                ],
-                contactDetail: [
-                    {
-                        required: true,
-                        message: "请输入联系方式",
-                        trigger: "blur"
-                    },
-                    {
-                        min: 3,
-                        max: 20,
-                        message: "长度在 3 到 20 个字符",
-                        trigger: "blur"
-                    }
-                ]
-            },
-            posts: [
-                {
-                    id: 1,
-                    title: "我天天被欺负",
-                    content: "我天天被欺负，真的好无奈，我该怎么办呢？",
-                    region: "北京市",
-                    detailedAddr: "北京市东城区",
-                    contactPerson: "葛优",
-                    contactDetail: "13822921101",
-                    author: "校长",
-                    status: "inAuth"
-                },
-                {
-                    id: 2,
-                    title: "被揍了",
-                    content: "谁能替我报仇",
-                    region: "上海市",
-                    detailedAddr: "上海市",
-                    contactPerson: "甄子丹",
-                    contactDetail: "13822921101",
-                    author: "校长",
-                    status: "inAuth"
-                },
-                {
+  name: "Treesays",
+  data() {
+    return {
+      activeName: "all",
+      labelPosition1: "top",
+      labelPosition2: "left",
+      hcPostForm: {
+        title: "",
+        content: "",
+        region: "",
+        detailedAddr: "",
+        contactPerson: "",
+        contactDetail: ""
+      },
+      rules: {
+        title: [
+          {
+            required: true,
+            message: "请输入求助标题",
+            trigger: "blur"
+          },
+          {
+            min: 3,
+            max: 20,
+            message: "长度在 3 到 20 个字符",
+            trigger: "blur"
+          }
+        ],
+        content: [
+          {
+            required: true,
+            message: "请输入求助内容",
+            trigger: "blur"
+          },
+          {
+            min: 15,
+            max: 2000,
+            message: "长度在 15 到 2000 个字符",
+            trigger: "blur"
+          }
+        ],
+        region: [
+          {
+            required: true,
+            message: "请输入所在区域",
+            trigger: "change"
+          }
+        ],
+        detailedAddr: [
+          {
+            required: true,
+            message: "请输入详细地址",
+            trigger: "blur"
+          },
+          {
+            min: 8,
+            max: 50,
+            message: "长度在 8 到 50 个字符",
+            trigger: "blur"
+          }
+        ],
+        contactPerson: [
+          {
+            required: true,
+            message: "请输入联系人",
+            trigger: "blur"
+          },
+          {
+            min: 3,
+            max: 10,
+            message: "长度在 3 到 10 个字符",
+            trigger: "blur"
+          }
+        ],
+        contactDetail: [
+          {
+            required: true,
+            message: "请输入联系方式",
+            trigger: "blur"
+          },
+          {
+            min: 3,
+            max: 20,
+            message: "长度在 3 到 20 个字符",
+            trigger: "blur"
+          }
+        ]
+      },
+      posts: [
+        {
+          id: 1,
+          content:
+            "缩略图到大图无缝切换，可以显示大长图、gif图片。功能完善、性能良好、扩展方便、使用简单。",
+          imgAttachment: [],
+          categories: [{ id: 1, name: "代码写诗" }],
+          upCount: 0,
+          shareCount: 0,
+          comments: {
+            count: 10,
+            details: [
+              {
+                id: 1,
+                username: "校长不读书",
+                userAvatar:
+                  "https://avatars2.githubusercontent.com/u/13238103?s=460&v=4",
+                content: "自己顶",
+                replies: [
+                  {
                     id: 3,
-                    title: "找大佬",
-                    content: "我天天被欺负，找大佬罩我",
-                    region: "南京市",
-                    detailedAddr: "南京市",
-                    contactPerson: "葛优",
-                    contactDetail: "13822921101",
-                    author: "校长",
-                    status: "inAuth"
-                },
-                {
-                    id: 4,
-                    title: "老师也欺负我",
-                    content: "这是我没想到的，大人也不全是好人",
-                    region: "西安市",
-                    detailedAddr: "西安市",
-                    contactPerson: "张艺谋",
-                    contactDetail: "13822921101",
-                    author: "校长",
-                    status: "inProcess"
-                },
-                {
-                    id: 5,
-                    title: "到底该说不该说",
-                    content: "被班长欺负，人面兽心",
-                    region: "成都市",
-                    detailedAddr: "成都市",
-                    contactPerson: "葛优",
-                    contactDetail: "13822921101",
-                    author: "校长",
-                    status: "inProcess"
-                },
-                {
-                    id: 6,
-                    title: "不敢说",
-                    content: "这里会是一个好的树洞吗",
-                    region: "成都市",
-                    detailedAddr: "成都市",
-                    contactPerson: "葛优",
-                    contactDetail: "13822921101",
-                    author: "校长",
-                    status: "processing"
-                },
-                {
-                    id: 7,
-                    title: "被欺负了一个学期",
-                    content: "没办法了只能求救",
-                    region: "成都市",
-                    detailedAddr: "成都市",
-                    contactPerson: "葛优",
-                    contactDetail: "13822921101",
-                    author: "校长",
-                    status: "processing"
-                }
+                    username: "皓哥",
+                    userAvatar:
+                      "https://avatars2.githubusercontent.com/u/13238103?s=460&v=4",
+                    content: "帮校长顶"
+                  }
+                ]
+              }
             ]
-        };
-    },
-    computed: {
-        inAuthPosts() {
-            return this.posts.filter(post => post.status === "inAuth");
+          },
+          authorInfo: {
+            name: "校长",
+            position: "前端开发工程师",
+            company: "阿里蚂蚁金服体验部",
+            avatar:
+              "https://avatars2.githubusercontent.com/u/13238103?s=460&v=4"
+          },
+          status: "hot"
         },
-        inProcessPosts() {
-            return this.posts.filter(post => post.status === "inProcess");
+        {
+          id: 2,
+          content:
+            "缩略图到大图无缝切换，可以显示大长图、gif图片。功能完善、性能良好、扩展方便、使用简单。",
+          imgAttachment: [],
+          categories: [{ id: 1, name: "代码写诗" }],
+          upCount: 0,
+          shareCount: 0,
+          comments: {
+            count: 10,
+            details: [
+              {
+                id: 1,
+                username: "校长不读书",
+                userAvatar:
+                  "https://avatars2.githubusercontent.com/u/13238103?s=460&v=4",
+                content: "自己顶",
+                replies: [
+                  {
+                    id: 3,
+                    username: "皓哥",
+                    userAvatar:
+                      "https://avatars2.githubusercontent.com/u/13238103?s=460&v=4",
+                    content: "帮校长顶"
+                  }
+                ]
+              }
+            ]
+          },
+          authorInfo: {
+            name: "校长",
+            position: "前端开发工程师",
+            company: "阿里蚂蚁金服体验部",
+            avatar:
+              "https://avatars2.githubusercontent.com/u/13238103?s=460&v=4"
+          },
+          status: "hot"
         },
-        processingPosts() {
-            return this.posts.filter(post => post.status === "processing");
+        {
+          id: 3,
+          content:
+            "缩略图到大图无缝切换，可以显示大长图、gif图片。功能完善、性能良好、扩展方便、使用简单。",
+          imgAttachment: [],
+          categories: [{ id: 1, name: "代码写诗" }],
+          upCount: 0,
+          shareCount: 0,
+          comments: {
+            count: 10,
+            details: [
+              {
+                id: 1,
+                username: "校长不读书",
+                userAvatar:
+                  "https://avatars2.githubusercontent.com/u/13238103?s=460&v=4",
+                content: "自己顶",
+                replies: [
+                  {
+                    id: 3,
+                    username: "皓哥",
+                    userAvatar:
+                      "https://avatars2.githubusercontent.com/u/13238103?s=460&v=4",
+                    content: "帮校长顶"
+                  }
+                ]
+              }
+            ]
+          },
+          authorInfo: {
+            name: "校长",
+            position: "前端开发工程师",
+            company: "阿里蚂蚁金服体验部",
+            avatar:
+              "https://avatars2.githubusercontent.com/u/13238103?s=460&v=4"
+          },
+          status: "hot"
+        },
+        {
+          id: 4,
+          content:
+            "缩略图到大图无缝切换，可以显示大长图、gif图片。功能完善、性能良好、扩展方便、使用简单。",
+          imgAttachment: [],
+          categories: [{ id: 1, name: "代码写诗" }],
+          upCount: 0,
+          shareCount: 0,
+          comments: {
+            count: 10,
+            details: [
+              {
+                id: 1,
+                username: "校长不读书",
+                userAvatar:
+                  "https://avatars2.githubusercontent.com/u/13238103?s=460&v=4",
+                content: "自己顶",
+                replies: [
+                  {
+                    id: 3,
+                    username: "皓哥",
+                    userAvatar:
+                      "https://avatars2.githubusercontent.com/u/13238103?s=460&v=4",
+                    content: "帮校长顶"
+                  }
+                ]
+              }
+            ]
+          },
+          authorInfo: {
+            name: "校长",
+            position: "前端开发工程师",
+            company: "阿里蚂蚁金服体验部",
+            avatar:
+              "https://avatars2.githubusercontent.com/u/13238103?s=460&v=4"
+          },
+          status: "new"
+        },
+        {
+          id: 5,
+          content:
+            "缩略图到大图无缝切换，可以显示大长图、gif图片。功能完善、性能良好、扩展方便、使用简单。",
+          imgAttachment: [],
+          categories: [{ id: 1, name: "代码写诗" }],
+          upCount: 0,
+          shareCount: 0,
+          comments: {
+            count: 10,
+            details: [
+              {
+                id: 1,
+                username: "校长不读书",
+                userAvatar:
+                  "https://avatars2.githubusercontent.com/u/13238103?s=460&v=4",
+                content: "自己顶",
+                replies: [
+                  {
+                    id: 3,
+                    username: "皓哥",
+                    userAvatar:
+                      "https://avatars2.githubusercontent.com/u/13238103?s=460&v=4",
+                    content: "帮校长顶"
+                  }
+                ]
+              }
+            ]
+          },
+          authorInfo: {
+            name: "校长",
+            position: "前端开发工程师",
+            company: "阿里蚂蚁金服体验部",
+            avatar:
+              "https://avatars2.githubusercontent.com/u/13238103?s=460&v=4"
+          },
+          status: "new"
         }
+      ]
+    };
+  },
+  computed: {
+    hotPosts() {
+      return this.posts.filter(post => post.status === "hot");
     },
-    methods: {
-        handleClick(tab, event) {
-            console.log(tab, event);
-        },
-        submitForm(formName) {
-            this.$refs[formName].validate(valid => {
-                valid ? alert("submit!") : alert("error!");
-            });
-        },
-        resetForm(formName) {
-            this.$refs[formName].resetFields();
-        }
+    newPosts() {
+      return this.posts.filter(post => post.status === "new");
     }
+  },
+  methods: {
+    handleClick(tab, event) {
+      console.log(tab, event);
+    },
+    submitForm(formName) {
+      this.$refs[formName].validate(valid => {
+        valid ? alert("submit!") : alert("error!");
+      });
+    },
+    resetForm(formName) {
+      this.$refs[formName].resetFields();
+    }
+  }
 };
 </script>
 
 <!-- Add 'scoped' attribute to limit CSS to this component only -->
 <style scoped>
 .hc-container {
-    display: flex;
-    flex-direction: row;
-    width: 960px;
-    margin: 20px auto;
-    justify-content: space-between;
-    background-color: #f4f4f5;
+  display: flex;
+  flex-direction: row;
+  width: 960px;
+  margin: 20px auto;
+  justify-content: space-between;
+  background-color: #f4f4f5;
 }
 .hc-posts {
-    width: 66%;
-    background-color: #f4f4f5;
-    /* padding: 15px; */
+  width: 66%;
+  background-color: #f4f4f5;
+  /* padding: 15px; */
 }
 .hc-form {
-    width: 29%;
-    background-color: #fff;
-    padding: 12px;
+  width: 29%;
+  background-color: #fff;
+  padding: 12px;
 }
 .hc-post-layout {
-    display: flex;
-    flex-direction: column;
-    background-color: #fff;
-    margin-bottom: 8px;
-    padding-bottom: 14px;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  margin-bottom: 8px;
 }
 .hc-post-item {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    width: 95%;
-    margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
-.hc-post-item .left-section {
-    display: flex;
-    flex-direction: column;
+.user-info {
+  display: flex;
+  padding: 16px 2rem 0 20px;
 }
-.hc-post-item .left-section span {
-    color: #606266;
-    font-size: 14px;
-    margin-bottom: 1rem;
+.user-avatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.hc-post-item .left-section .post-info > span {
-    margin-right: 20px;
+.author-info {
+  color: #8a9aa9;
+  font-size: 0.82rem;
+  margin-left: 0.8rem;
 }
-.hc-post-item .right-section {
-    display: flex;
+.author-info h3 {
+  color: #2e3135;
+  margin: 0;
+  font-size: 0.95rem;
+}
+.author-info span {
+  display: inline-block;
+  margin-top: 0.24rem;
+}
+
+.post-content {
+  color: #17181a;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 5px 3.3rem 0 5rem;
+}
+.post-tags {
+  margin: 5px 3.3rem 0.85rem 5rem;
+}
+.post-stats {
+  display: flex;
+  border-top: 1px solid #ebebeb;
+  justify-content: space-evenly;
+  height: 34px;
+}
+.post-stats-divider {
+  width: 1px;
+  height: 65%;
+  margin: auto 8px;
+  vertical-align: middle;
+  position: relative;
+}
+.post-stats span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #8a93a0;
+  font-size: 0.9rem;
 }
 </style>
