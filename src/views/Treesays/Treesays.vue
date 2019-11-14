@@ -1,15 +1,23 @@
 <template>
   <div class="hc-container">
     <div class="hc-posts">
-      <el-tabs v-model="activeName" @tab-click="handleClick">
-        <el-tab-pane label="热门" name="all">
-          <div v-for="post in hotPosts" :key="post.id" class="hc-post-layout">
+      <el-tabs
+        v-model="activeName"
+        @tab-click="handleClick"
+      >
+        <el-tab-pane
+          label="热门"
+          name="all"
+        >
+          <div
+            v-for="post in hotPosts"
+            :key="post.id"
+            class="hc-post-layout"
+          >
             <div class="hc-post-item">
               <div class="user-info">
                 <div class="user-avatar">
-                  <el-avatar
-                    src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
-                  ></el-avatar>
+                  <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
                 </div>
                 <div class="author-info">
                   <h3>{{post.authorInfo.name}}</h3>
@@ -30,22 +38,33 @@
               </div>
               <div class="post-stats">
                 <span>赞</span>
-                <el-divider class="post-stats-divider" direction="vertical"></el-divider>
+                <el-divider
+                  class="post-stats-divider"
+                  direction="vertical"
+                ></el-divider>
                 <span>评论</span>
-                <el-divider class="post-stats-divider" direction="vertical"></el-divider>
+                <el-divider
+                  class="post-stats-divider"
+                  direction="vertical"
+                ></el-divider>
                 <span>分享</span>
               </div>
             </div>
           </div>
         </el-tab-pane>
-        <el-tab-pane label="最新" name="inAuth">
-          <div v-for="post in newPosts" :key="post.id" class="hc-post-layout">
+        <el-tab-pane
+          label="最新"
+          name="inAuth"
+        >
+          <div
+            v-for="post in newPosts"
+            :key="post.id"
+            class="hc-post-layout"
+          >
             <div class="hc-post-item">
               <div class="user-info">
                 <div class="user-avatar">
-                  <el-avatar
-                    src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
-                  ></el-avatar>
+                  <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
                 </div>
                 <div class="author-info">
                   <h3>{{post.authorInfo.name}}</h3>
@@ -66,9 +85,15 @@
               </div>
               <div class="post-stats">
                 <span>赞</span>
-                <el-divider class="post-stats-divider" direction="vertical"></el-divider>
+                <el-divider
+                  class="post-stats-divider"
+                  direction="vertical"
+                ></el-divider>
                 <span>评论</span>
-                <el-divider class="post-stats-divider" direction="vertical"></el-divider>
+                <el-divider
+                  class="post-stats-divider"
+                  direction="vertical"
+                ></el-divider>
                 <span>分享</span>
               </div>
             </div>
@@ -77,132 +102,155 @@
       </el-tabs>
     </div>
     <div class="hc-form">
-      <h3>快速发布求助信息</h3>
-      <el-form
-        ref="hcForm"
-        :rules="rules"
-        label-position="top"
-        label-width="80px"
-        :model="hcPostForm"
-      >
-        <el-form-item prop="title" label="求助标题">
-          <el-input v-model="hcPostForm.title" />
-        </el-form-item>
-        <el-form-item prop="content" label="求助内容">
-          <el-input v-model="hcPostForm.content" type="textarea" :rows="7" />
-        </el-form-item>
-        <el-form-item prop="region" label="所在区域">
-          <el-select v-model="hcPostForm.region" placeholder="请选择所在区域">
-            <el-option label="区域一" value="shanghai" />
-            <el-option label="区域二" value="beijing" />
-          </el-select>
-        </el-form-item>
-        <el-form-item prop="detailedAddr" label="详细地址">
-          <el-input v-model="hcPostForm.detailedAddr" />
-        </el-form-item>
-        <el-form-item prop="contactPerson" label="联系人">
-          <el-input v-model="hcPostForm.contactPerson" />
-        </el-form-item>
-        <el-form-item prop="contactDetail" label="联系方式">
-          <el-input v-model="hcPostForm.contactDetail" />
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="submitForm('hcForm')">提交</el-button>
-          <el-button @click="resetForm('hcForm')">重置</el-button>
-        </el-form-item>
-      </el-form>
+      <el-card class="box-card">
+        <el-card class="add-mt">
+          <div class="author-wrap">
+            <el-avatar
+              shape="square"
+              :size="50"
+              :src="squareUrl"
+            >
+            </el-avatar>
+            <h5>{{ author.name }}</h5>
+            <el-button
+              type="success"
+              plain
+            >关注</el-button>
+          </div>
+          <h5>话题介绍</h5>
+          <p class="remark fs-s">{{author.remark}}</p>
+          <el-row :gutter="20">
+            <el-col
+              class="text-center"
+              :span="12"
+            >
+              <div class="grid-content bg-purple">
+                <p>{{author.hot}}</p>
+                <small>沸点</small>
+              </div>
+            </el-col>
+            <el-col
+              class="text-center"
+              :span="12"
+            >
+              <div class="grid-content bg-purple">
+                <p>{{author.notice}}</p>
+                <small>关注</small>
+              </div>
+            </el-col>
+          </el-row>
+        </el-card>
+      </el-card>
+      <el-card>
+        <div
+          slot="header"
+          class="clearfix"
+        >
+          <span class="fs-m">共有{{author.readers}}人参加</span>
+          <el-button
+            style="float: right; padding: 3px 0"
+            type="text"
+          >全部 ></el-button>
+        </div>
+        <div class="readers-wrap">
+          <div
+            class="text-center avatar"
+            v-for="item in reader"
+            :key="item.id"
+          >
+            <el-avatar
+              :size="50"
+              :src="item.url"
+            >
+            </el-avatar>
+            <small class="limit-width text-hidden">{{item.name}}</small>
+          </div>
+        </div>
+      </el-card>
     </div>
   </div>
 </template>
 
 <script>
-import "./overwrite.css";
+import './overwrite.css'
 export default {
-  name: "Treesays",
+  name: 'Treesays',
   data() {
     return {
-      activeName: "all",
-      labelPosition1: "top",
-      labelPosition2: "left",
-      hcPostForm: {
-        title: "",
-        content: "",
-        region: "",
-        detailedAddr: "",
-        contactPerson: "",
-        contactDetail: ""
-      },
+      activeName: 'all',
+      labelPosition1: 'top',
+      labelPosition2: 'left',
       rules: {
         title: [
           {
             required: true,
-            message: "请输入求助标题",
-            trigger: "blur"
+            message: '请输入求助标题',
+            trigger: 'blur'
           },
           {
             min: 3,
             max: 20,
-            message: "长度在 3 到 20 个字符",
-            trigger: "blur"
+            message: '长度在 3 到 20 个字符',
+            trigger: 'blur'
           }
         ],
         content: [
           {
             required: true,
-            message: "请输入求助内容",
-            trigger: "blur"
+            message: '请输入求助内容',
+            trigger: 'blur'
           },
           {
             min: 15,
             max: 2000,
-            message: "长度在 15 到 2000 个字符",
-            trigger: "blur"
+            message: '长度在 15 到 2000 个字符',
+            trigger: 'blur'
           }
         ],
         region: [
           {
             required: true,
-            message: "请输入所在区域",
-            trigger: "change"
+            message: '请输入所在区域',
+            trigger: 'change'
           }
         ],
         detailedAddr: [
           {
             required: true,
-            message: "请输入详细地址",
-            trigger: "blur"
+            message: '请输入详细地址',
+            trigger: 'blur'
           },
           {
             min: 8,
             max: 50,
-            message: "长度在 8 到 50 个字符",
-            trigger: "blur"
+            message: '长度在 8 到 50 个字符',
+            trigger: 'blur'
           }
         ],
         contactPerson: [
           {
             required: true,
-            message: "请输入联系人",
-            trigger: "blur"
+            message: '请输入联系人',
+            trigger: 'blur'
           },
           {
             min: 3,
             max: 10,
-            message: "长度在 3 到 10 个字符",
-            trigger: "blur"
+            message: '长度在 3 到 10 个字符',
+            trigger: 'blur'
           }
         ],
         contactDetail: [
           {
             required: true,
-            message: "请输入联系方式",
-            trigger: "blur"
+            message: '请输入联系方式',
+            trigger: 'blur'
           },
           {
             min: 3,
             max: 20,
-            message: "长度在 3 到 20 个字符",
-            trigger: "blur"
+            message: '长度在 3 到 20 个字符',
+            trigger: 'blur'
           }
         ]
       },
@@ -210,9 +258,9 @@ export default {
         {
           id: 1,
           content:
-            "缩略图到大图无缝切换，可以显示大长图、gif图片。功能完善、性能良好、扩展方便、使用简单。",
+            '缩略图到大图无缝切换，可以显示大长图、gif图片。功能完善、性能良好、扩展方便、使用简单。',
           imgAttachment: [],
-          categories: [{ id: 1, name: "代码写诗" }],
+          categories: [{ id: 1, name: '代码写诗' }],
           upCount: 0,
           shareCount: 0,
           comments: {
@@ -220,37 +268,37 @@ export default {
             details: [
               {
                 id: 1,
-                username: "校长不读书",
+                username: '校长不读书',
                 userAvatar:
-                  "https://avatars2.githubusercontent.com/u/13238103?s=460&v=4",
-                content: "自己顶",
+                  'https://avatars2.githubusercontent.com/u/13238103?s=460&v=4',
+                content: '自己顶',
                 replies: [
                   {
                     id: 3,
-                    username: "皓哥",
+                    username: '皓哥',
                     userAvatar:
-                      "https://avatars2.githubusercontent.com/u/13238103?s=460&v=4",
-                    content: "帮校长顶"
+                      'https://avatars2.githubusercontent.com/u/13238103?s=460&v=4',
+                    content: '帮校长顶'
                   }
                 ]
               }
             ]
           },
           authorInfo: {
-            name: "校长",
-            position: "前端开发工程师",
-            company: "阿里蚂蚁金服体验部",
+            name: '校长',
+            position: '前端开发工程师',
+            company: '阿里蚂蚁金服体验部',
             avatar:
-              "https://avatars2.githubusercontent.com/u/13238103?s=460&v=4"
+              'https://avatars2.githubusercontent.com/u/13238103?s=460&v=4'
           },
-          status: "hot"
+          status: 'hot'
         },
         {
           id: 2,
           content:
-            "缩略图到大图无缝切换，可以显示大长图、gif图片。功能完善、性能良好、扩展方便、使用简单。",
+            '缩略图到大图无缝切换，可以显示大长图、gif图片。功能完善、性能良好、扩展方便、使用简单。',
           imgAttachment: [],
-          categories: [{ id: 1, name: "代码写诗" }],
+          categories: [{ id: 1, name: '代码写诗' }],
           upCount: 0,
           shareCount: 0,
           comments: {
@@ -258,37 +306,37 @@ export default {
             details: [
               {
                 id: 1,
-                username: "校长不读书",
+                username: '校长不读书',
                 userAvatar:
-                  "https://avatars2.githubusercontent.com/u/13238103?s=460&v=4",
-                content: "自己顶",
+                  'https://avatars2.githubusercontent.com/u/13238103?s=460&v=4',
+                content: '自己顶',
                 replies: [
                   {
                     id: 3,
-                    username: "皓哥",
+                    username: '皓哥',
                     userAvatar:
-                      "https://avatars2.githubusercontent.com/u/13238103?s=460&v=4",
-                    content: "帮校长顶"
+                      'https://avatars2.githubusercontent.com/u/13238103?s=460&v=4',
+                    content: '帮校长顶'
                   }
                 ]
               }
             ]
           },
           authorInfo: {
-            name: "校长",
-            position: "前端开发工程师",
-            company: "阿里蚂蚁金服体验部",
+            name: '校长',
+            position: '前端开发工程师',
+            company: '阿里蚂蚁金服体验部',
             avatar:
-              "https://avatars2.githubusercontent.com/u/13238103?s=460&v=4"
+              'https://avatars2.githubusercontent.com/u/13238103?s=460&v=4'
           },
-          status: "hot"
+          status: 'hot'
         },
         {
           id: 3,
           content:
-            "缩略图到大图无缝切换，可以显示大长图、gif图片。功能完善、性能良好、扩展方便、使用简单。",
+            '缩略图到大图无缝切换，可以显示大长图、gif图片。功能完善、性能良好、扩展方便、使用简单。',
           imgAttachment: [],
-          categories: [{ id: 1, name: "代码写诗" }],
+          categories: [{ id: 1, name: '代码写诗' }],
           upCount: 0,
           shareCount: 0,
           comments: {
@@ -296,37 +344,37 @@ export default {
             details: [
               {
                 id: 1,
-                username: "校长不读书",
+                username: '校长不读书',
                 userAvatar:
-                  "https://avatars2.githubusercontent.com/u/13238103?s=460&v=4",
-                content: "自己顶",
+                  'https://avatars2.githubusercontent.com/u/13238103?s=460&v=4',
+                content: '自己顶',
                 replies: [
                   {
                     id: 3,
-                    username: "皓哥",
+                    username: '皓哥',
                     userAvatar:
-                      "https://avatars2.githubusercontent.com/u/13238103?s=460&v=4",
-                    content: "帮校长顶"
+                      'https://avatars2.githubusercontent.com/u/13238103?s=460&v=4',
+                    content: '帮校长顶'
                   }
                 ]
               }
             ]
           },
           authorInfo: {
-            name: "校长",
-            position: "前端开发工程师",
-            company: "阿里蚂蚁金服体验部",
+            name: '校长',
+            position: '前端开发工程师',
+            company: '阿里蚂蚁金服体验部',
             avatar:
-              "https://avatars2.githubusercontent.com/u/13238103?s=460&v=4"
+              'https://avatars2.githubusercontent.com/u/13238103?s=460&v=4'
           },
-          status: "hot"
+          status: 'hot'
         },
         {
           id: 4,
           content:
-            "缩略图到大图无缝切换，可以显示大长图、gif图片。功能完善、性能良好、扩展方便、使用简单。",
+            '缩略图到大图无缝切换，可以显示大长图、gif图片。功能完善、性能良好、扩展方便、使用简单。',
           imgAttachment: [],
-          categories: [{ id: 1, name: "代码写诗" }],
+          categories: [{ id: 1, name: '代码写诗' }],
           upCount: 0,
           shareCount: 0,
           comments: {
@@ -334,37 +382,37 @@ export default {
             details: [
               {
                 id: 1,
-                username: "校长不读书",
+                username: '校长不读书',
                 userAvatar:
-                  "https://avatars2.githubusercontent.com/u/13238103?s=460&v=4",
-                content: "自己顶",
+                  'https://avatars2.githubusercontent.com/u/13238103?s=460&v=4',
+                content: '自己顶',
                 replies: [
                   {
                     id: 3,
-                    username: "皓哥",
+                    username: '皓哥',
                     userAvatar:
-                      "https://avatars2.githubusercontent.com/u/13238103?s=460&v=4",
-                    content: "帮校长顶"
+                      'https://avatars2.githubusercontent.com/u/13238103?s=460&v=4',
+                    content: '帮校长顶'
                   }
                 ]
               }
             ]
           },
           authorInfo: {
-            name: "校长",
-            position: "前端开发工程师",
-            company: "阿里蚂蚁金服体验部",
+            name: '校长',
+            position: '前端开发工程师',
+            company: '阿里蚂蚁金服体验部',
             avatar:
-              "https://avatars2.githubusercontent.com/u/13238103?s=460&v=4"
+              'https://avatars2.githubusercontent.com/u/13238103?s=460&v=4'
           },
-          status: "new"
+          status: 'new'
         },
         {
           id: 5,
           content:
-            "缩略图到大图无缝切换，可以显示大长图、gif图片。功能完善、性能良好、扩展方便、使用简单。",
+            '缩略图到大图无缝切换，可以显示大长图、gif图片。功能完善、性能良好、扩展方便、使用简单。',
           imgAttachment: [],
-          categories: [{ id: 1, name: "代码写诗" }],
+          categories: [{ id: 1, name: '代码写诗' }],
           upCount: 0,
           shareCount: 0,
           comments: {
@@ -372,56 +420,83 @@ export default {
             details: [
               {
                 id: 1,
-                username: "校长不读书",
+                username: '校长不读书',
                 userAvatar:
-                  "https://avatars2.githubusercontent.com/u/13238103?s=460&v=4",
-                content: "自己顶",
+                  'https://avatars2.githubusercontent.com/u/13238103?s=460&v=4',
+                content: '自己顶',
                 replies: [
                   {
                     id: 3,
-                    username: "皓哥",
+                    username: '皓哥',
                     userAvatar:
-                      "https://avatars2.githubusercontent.com/u/13238103?s=460&v=4",
-                    content: "帮校长顶"
+                      'https://avatars2.githubusercontent.com/u/13238103?s=460&v=4',
+                    content: '帮校长顶'
                   }
                 ]
               }
             ]
           },
           authorInfo: {
-            name: "校长",
-            position: "前端开发工程师",
-            company: "阿里蚂蚁金服体验部",
+            name: '校长',
+            position: '前端开发工程师',
+            company: '阿里蚂蚁金服体验部',
             avatar:
-              "https://avatars2.githubusercontent.com/u/13238103?s=460&v=4"
+              'https://avatars2.githubusercontent.com/u/13238103?s=460&v=4'
           },
-          status: "new"
+          status: 'new'
+        }
+      ],
+      squareUrl:
+        'https://mirror-gold-cdn.xitu.io/168e08de7600547699f?imageView2/1/w/100/h/100/q/85/format/webp/interlace/1',
+      author: {
+        name: '树洞一下',
+        remark: '话题简介这里是阿萨德不看的',
+        hot: '1485',
+        notice: '1822',
+        readers: '3891'
+      },
+      reader: [
+        {
+          id: 0,
+          name: '校长',
+          url:
+            'https://leancloud-gold-cdn.xitu.io/pui5ANRQcNkH6EAaPTAIPuA?imageView2/1/w/100/h/100/q/85/format/webp/interlace/1'
+        },
+        {
+          id: 1,
+          name: '皓',
+          url:
+            'https://leancloud-gold-cdn.xitu.io/pui5ANRQcNkH6EAaPTAIPuA?imageView2/1/w/100/h/100/q/85/format/webp/interlace/1'
+        },
+        {
+          id: 2,
+          name: '周周',
+          url:
+            'https://leancloud-gold-cdn.xitu.io/pui5ANRQcNkH6EAaPTAIPuA?imageView2/1/w/100/h/100/q/85/format/webp/interlace/1'
+        },
+        {
+          id: 3,
+          name: '无名人士灭绝师太',
+          url:
+            'https://leancloud-gold-cdn.xitu.io/pui5ANRQcNkH6EAaPTAIPuA?imageView2/1/w/100/h/100/q/85/format/webp/interlace/1'
         }
       ]
-    };
+    }
   },
   computed: {
     hotPosts() {
-      return this.posts.filter(post => post.status === "hot");
+      return this.posts.filter(post => post.status === 'hot')
     },
     newPosts() {
-      return this.posts.filter(post => post.status === "new");
+      return this.posts.filter(post => post.status === 'new')
     }
   },
   methods: {
     handleClick(tab, event) {
-      console.log(tab, event);
-    },
-    submitForm(formName) {
-      this.$refs[formName].validate(valid => {
-        valid ? alert("submit!") : alert("error!");
-      });
-    },
-    resetForm(formName) {
-      this.$refs[formName].resetFields();
+      console.log(tab, event)
     }
   }
-};
+}
 </script>
 
 <!-- Add 'scoped' attribute to limit CSS to this component only -->
@@ -441,7 +516,7 @@ export default {
 }
 .hc-form {
   width: 29%;
-  background-color: #fff;
+  background-color: #f4f4f5;
   padding: 12px;
 }
 .hc-post-layout {
@@ -508,5 +583,56 @@ export default {
   height: 100%;
   color: #8a93a0;
   font-size: 0.9rem;
+}
+.add-mt {
+  margin-top: 100px;
+  min-height: 200px;
+}
+h5 {
+  margin: 5px 0;
+}
+.author-wrap {
+  text-align: center;
+  z-index: 1;
+}
+.fs-s {
+  font-size: 12px;
+}
+.fs-m {
+  font-size: 16px;
+}
+.text-center {
+  text-align: center;
+}
+.box-card {
+  margin-bottom: 10px;
+}
+.avatar {
+  display: inline-block;
+  width: 25%;
+}
+.flex-row {
+  display: flex;
+  flex-flow: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+.flex-around {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.limit-width {
+  display: block;
+  text-align: center;
+  width: 100%;
+  font-size: 12px;
+  color: #909090;
+}
+.text-hidden {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 </style>
