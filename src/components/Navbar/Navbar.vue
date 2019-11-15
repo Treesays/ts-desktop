@@ -18,7 +18,7 @@
         <el-menu :default-active="$route.name" mode="horizontal" @select="handleSelect">
 
                     <div class="navWrapper">
-                    <span class="logo">树 说</span>
+                    <span class="logo"><img  height="38" src="~@/assets/treesays.png" alt="logo"></span>
                     <el-menu-item index="Treesays" @click="toRouter('/home')">树洞一下</el-menu-item>
                     <el-menu-item index="Smzdm" @click="toRouter('/smzdm')">什么值得买</el-menu-item>
                     <el-menu-item index="3" @click="toRouter('')">代码秀</el-menu-item>
