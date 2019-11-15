@@ -168,6 +168,30 @@
         </div>
       </el-card>
     </div>
+    <el-dialog
+    class="login"
+    width="20%"
+    top="30vh"
+    :modal="true"
+    :visible.sync="showLoginModal" 
+    close-on-click-moda="false">
+        <div slot="title" class="login-title">
+          登录
+        </div>
+      <el-form class="login-form">
+        <div>
+          <el-input size="mini"  placeholder="请输入邮箱"/>
+        </div>
+        <div>
+          <el-input size="mini" placeholder="请输入密码"/>
+        </div>
+        <el-button type="primary" size="mini" class="login-button">登录</el-button>
+        <div class="login-form-registry">
+          <div><span>没有账号？ </span><a href="">注册</a></div>
+          <div><a href="">找回密码</a></div>
+        </div>
+      </el-form>
+    </el-dialog>
   </div>
 </template>
 
@@ -480,7 +504,8 @@ export default {
           url:
             'https://leancloud-gold-cdn.xitu.io/pui5ANRQcNkH6EAaPTAIPuA?imageView2/1/w/100/h/100/q/85/format/webp/interlace/1'
         }
-      ]
+      ],
+      showLoginModal: true
     }
   },
   computed: {
@@ -634,5 +659,25 @@ h5 {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+.el-form div {
+  margin-bottom: 5px
+}
+.login-title {
+  font-size: 14px;
+  margin-bottom: 0px;
+}
+.login-button {
+  width: 100%;
+}
+.login-form-registry {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  margin: 1rem 0px 0px 0px;
+}
+.login-form-registry a {
+  text-decoration: none;
+  color: #007fff;
 }
 </style>
