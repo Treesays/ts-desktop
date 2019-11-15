@@ -175,20 +175,45 @@
     :modal="true"
     :visible.sync="showLoginModal" 
     close-on-click-moda="false">
-        <div slot="title" class="login-title">
-          登录
-        </div>
+      <div slot="title" class="login-title">
+        登录
+      </div>
       <el-form class="login-form">
         <div>
-          <el-input size="mini"  placeholder="请输入邮箱"/>
+          <el-input size="mini" placeholder="请输入邮箱" v-model="email"/>
         </div>
         <div>
-          <el-input size="mini" placeholder="请输入密码"/>
+          <el-input size="mini" placeholder="请输入密码" v-model="password"/>
         </div>
         <el-button type="primary" size="mini" class="login-button">登录</el-button>
         <div class="login-form-registry">
-          <div><span>没有账号？ </span><a href="">注册</a></div>
+          <div><span>没有账号？ </span><a @click="toRegistry">注册</a></div>
           <div><a href="">找回密码</a></div>
+        </div>
+      </el-form>
+    </el-dialog>
+    <el-dialog 
+    width="20%" 
+    top="30vh" 
+    :modal="true" 
+    :visible.sync="showRegistryModal" 
+    close-on-click-moda="false">
+      <div slot="title" class="registry-title">
+        注册
+      </div>
+      <el-form class="registry-form">
+        <div>
+          <el-input size="mini" placeholder="用输入用户名" v-model="username"/>
+        </div>
+        <div>
+          <el-input size="mini" placeholder="请输入邮箱" v-model="email"/>
+        </div>
+        <div>
+          <el-input size="mini" placeholder="请输入密码 (不少于6位)" v-model="password"/>
+        </div>
+        <el-button type="primary" size="mini" class="registry-button">注册</el-button>
+        <div class="registry-form-login align-center">
+          <a @click="toLogin">已有账号登录</a>
         </div>
       </el-form>
     </el-dialog>
@@ -201,9 +226,16 @@ export default {
   name: 'Treesays',
   data() {
     return {
+      /** start 登录、注册 */
+      username: '',
+      email: '',
+      password: '',
+      /** end 登录、注册 */
       activeName: 'all',
       labelPosition1: 'top',
       labelPosition2: 'left',
+      showLoginModal: false,
+      showRegistryModal: false,
       rules: {
         title: [
           {
@@ -504,8 +536,7 @@ export default {
           url:
             'https://leancloud-gold-cdn.xitu.io/pui5ANRQcNkH6EAaPTAIPuA?imageView2/1/w/100/h/100/q/85/format/webp/interlace/1'
         }
-      ],
-      showLoginModal: true
+      ]
     }
   },
   computed: {
@@ -519,6 +550,14 @@ export default {
   methods: {
     handleClick(tab, event) {
       console.log(tab, event)
+    },
+    toLogin() {
+      this.showLoginModal = true
+      this.showRegistryModal = false
+    },
+    toRegistry() {
+      this.showRegistryModal = true
+      this.showLoginModal = false
     }
   }
 }
@@ -663,21 +702,27 @@ h5 {
 .el-form div {
   margin-bottom: 5px
 }
-.login-title {
+.login-title, .registry-title {
   font-size: 14px;
   margin-bottom: 0px;
 }
-.login-button {
+.login-button, .registry-button {
   width: 100%;
 }
-.login-form-registry {
+.login-form-registry, .registry-form-login {
   display: flex;
   justify-content: space-between;
   font-size: 12px;
   margin: 1rem 0px 0px 0px;
 }
-.login-form-registry a {
+.login-form-registry a, .registry-form-login a {
   text-decoration: none;
   color: #007fff;
+  cursor: pointer;
 }
+
+.align-center {
+  justify-content: center;
+}
+
 </style>
