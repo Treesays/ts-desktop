@@ -17,13 +17,38 @@
         </el-menu> -->
         <el-menu :default-active="$route.name" mode="horizontal" @select="handleSelect">
 
-                    <div class="navWrapper">
-                    <span class="logo"><img  height="38" src="~@/assets/treesays.png" alt="logo"></span>
+            <div class="navWrapper">
+                <div class="left-part">
+                    <span class="logo"><img height="38" src="~@/assets/treesays.png" alt="logo"></span>
                     <el-menu-item index="Treesays" @click="toRouter('/home')">树洞一下</el-menu-item>
                     <el-menu-item index="Smzdm" @click="toRouter('/smzdm')">什么值得买</el-menu-item>
                     <el-menu-item index="3" @click="toRouter('')">代码秀</el-menu-item>
                     <el-menu-item index="4" @click="toRouter('')">相爱相杀</el-menu-item>
-                    </div>
+                </div>
+                <div class="right-part">
+                    <el-button type="primary" size="small" @click="drawer = true">发动态</el-button>
+                </div>
+            </div>
+            <el-drawer title="发动态测试" :visible.sync="drawer" direction="rtl">
+                <el-form :label-position="labelPosition" label-width="80px" style="margin: 16px;" :model="mockCreation">
+                    <el-form-item label="用户名">
+                        <el-input v-model="mockCreation.username"></el-input>
+                    </el-form-item>
+                    <el-form-item label="工作单位">
+                        <el-input v-model="mockCreation.workplace"></el-input>
+                    </el-form-item>
+                    <el-form-item label="职位">
+                        <el-input v-model="mockCreation.position"></el-input>
+                    </el-form-item>
+                    <el-form-item label="帖子内容">
+                        <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 200}" placeholder="请输入内容" v-model="mockCreation.content"></el-input>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-button type="primary" @click="onSubmit">立即创建</el-button>
+                        <el-button>取消</el-button>
+                    </el-form-item>
+                </el-form>
+            </el-drawer>
 
         </el-menu>
     </div>
@@ -35,10 +60,21 @@ export default {
     name: "Navbar",
     data() {
         return {
-            activeIndex: "1"
+            activeIndex: "1",
+            drawer: false,
+            labelPosition: 'top',
+            mockCreation: {
+                username: '',
+                workplace: '',
+                position: '',
+                content: '',
+            }
         };
     },
     methods: {
+        onSubmit() {
+        console.log('submit!');
+        },
         handleSelect(key, keyPath) {
             console.log(key, keyPath);
         },
@@ -63,6 +99,7 @@ export default {
 }
 .navWrapper {
     display: flex;
+    justify-content: space-between;
     width: 960px;
     margin: 0 auto;
 }
@@ -74,7 +111,14 @@ export default {
     align-items: center;
     margin-right: 65px;
 }
-
+.left-part {
+    display: flex;
+}
+.right-part {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .navWrapper .el-menu-item.is-active {
     background: none;
     color: #1989fa;
