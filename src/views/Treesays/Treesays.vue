@@ -1,100 +1,100 @@
 <template>
-  <div class="hc-container">
-    <div class="hc-posts">
-      <el-tabs v-model="activeName" @tab-click="handleClick">
-        <el-tab-pane label="热门" name="all">
-          <div v-for="post in hotPosts" :key="post.id" class="hc-post-layout">
-            <div class="hc-post-item">
-              <div class="user-info">
-                <div class="user-avatar">
-                  <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
-                </div>
-                <div class="author-info">
-                  <h3>{{post.authorInfo.name}}</h3>
-                  <span>{{post.authorInfo.position}} @</span>
-                  <span>{{post.authorInfo.company}}</span>
-                </div>
-              </div>
-              <div class="post-content">
-                <span>{{post.content}}</span>
-              </div>
-              <div class="post-tags">
-                <el-tag v-for="category in post.categories" :key="category.id" size="small" effect="plain">{{ category.name }}</el-tag>
-              </div>
-              <div class="post-stats">
-                <span>赞</span>
-                <el-divider class="post-stats-divider" direction="vertical"></el-divider>
-                <span>评论</span>
-                <el-divider class="post-stats-divider" direction="vertical"></el-divider>
-                <span>分享</span>
-              </div>
-            </div>
-          </div>
-        </el-tab-pane>
-        <el-tab-pane label="最新" name="inAuth">
-          <div v-for="post in newPosts" :key="post.id" class="hc-post-layout">
-            <div class="hc-post-item">
-              <div class="user-info">
-                <div class="user-avatar">
-                  <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
-                </div>
-                <div class="author-info">
-                  <h3>{{post.authorInfo.name}}</h3>
-                  <span>{{post.authorInfo.position}} @</span>
-                  <span>{{post.authorInfo.company}}</span>
-                </div>
-              </div>
-              <div class="post-content">
-                <span>{{post.content}}</span>
-              </div>
-              <div class="post-tags">
-                <el-tag v-for="category in post.categories" :key="category.id" size="small" effect="plain">{{ category.name }}</el-tag>
-              </div>
-              <div class="post-stats">
-                <span>赞</span>
-                <el-divider class="post-stats-divider" direction="vertical"></el-divider>
-                <span>评论</span>
-                <el-divider class="post-stats-divider" direction="vertical"></el-divider>
-                <span>分享</span>
-              </div>
-            </div>
-          </div>
-        </el-tab-pane>
-      </el-tabs>
-    </div>
+    <div class="hc-container">
+        <div class="hc-posts">
+            <el-tabs v-model="activeName" @tab-click="handleClick">
+                <el-tab-pane label="热门" name="all">
+                    <div v-for="post in hotPosts" :key="post.id" class="hc-post-layout">
+                        <div class="hc-post-item">
+                            <div class="user-info">
+                                <div class="user-avatar">
+                                    <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
+                                </div>
+                                <div class="author-info">
+                                    <h3>{{post.authorInfo.name}}</h3>
+                                    <span>{{post.authorInfo.position}} @</span>
+                                    <span>{{post.authorInfo.company}}</span>
+                                </div>
+                            </div>
+                            <div class="post-content">
+                                <span>{{post.content}}</span>
+                            </div>
+                            <div class="post-tags">
+                                <el-tag v-for="category in post.categories" :key="category.id" size="small" effect="plain">{{ category.name }}</el-tag>
+                            </div>
+                            <div class="post-stats">
+                                <span>赞</span>
+                                <el-divider class="post-stats-divider" direction="vertical"></el-divider>
+                                <span>评论</span>
+                                <el-divider class="post-stats-divider" direction="vertical"></el-divider>
+                                <span>分享</span>
+                            </div>
+                        </div>
+                    </div>
+                </el-tab-pane>
+                <el-tab-pane label="最新" name="inAuth">
+                    <div v-for="post in newPosts" :key="post.id" class="hc-post-layout">
+                        <div class="hc-post-item">
+                            <div class="user-info">
+                                <div class="user-avatar">
+                                    <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
+                                </div>
+                                <div class="author-info">
+                                    <h3>{{post.authorInfo.name}}</h3>
+                                    <span>{{post.authorInfo.position}} @</span>
+                                    <span>{{post.authorInfo.company}}</span>
+                                </div>
+                            </div>
+                            <div class="post-content">
+                                <span>{{post.content}}</span>
+                            </div>
+                            <div class="post-tags">
+                                <el-tag v-for="category in post.categories" :key="category.id" size="small" effect="plain">{{ category.name }}</el-tag>
+                            </div>
+                            <div class="post-stats">
+                                <span>赞</span>
+                                <el-divider class="post-stats-divider" direction="vertical"></el-divider>
+                                <span>评论</span>
+                                <el-divider class="post-stats-divider" direction="vertical"></el-divider>
+                                <span>分享</span>
+                            </div>
+                        </div>
+                    </div>
+                </el-tab-pane>
+            </el-tabs>
+        </div>
 
-    <div class="hc-form">
-      <el-card class="box-card" shadow="never">
-        <div class="topic-wallpaper">
-          <span class="wallpaper"></span>
-        </div>
-        <div class="topic-intro">
-          <el-avatar class="topic-avatar" shape="square" :size="50">
-          </el-avatar>
-          <div class="topic-intro-main">
-            <span class="topic-title">{{ topicInfo.name }}</span>
-            <el-button type="success" size="small" plain>关 注</el-button>
-          </div>
-          <div class="topic-description">
-            <div style="font-weight: bold;">话题介绍:</div>
-            <span>
-              来分享下你的开心和不开心，此话题下内容统一由官方机器人账号「树洞robot」代发，本话题只讲故事~
-            </span>
-          </div>
-        </div>
-        <div class="topic-stats">
-          <span>
-            <div class="count">1000</div>
-            <div class="item">沸点</div>
-          </span>
-          <el-divider class="post-stats-divider" direction="vertical"></el-divider>
-          <span>
-            <div class="count">1200</div>
-            <div class="item">关注</div>
-          </span>
-        </div>
-      </el-card>
-      <!-- <el-card class="box-card" shadow="never">
+        <div class="hc-form">
+            <el-card class="box-card" shadow="never">
+                <div class="topic-wallpaper">
+                    <span class="wallpaper"></span>
+                </div>
+                <div class="topic-intro">
+                    <el-avatar class="topic-avatar" shape="square" :size="50">
+                    </el-avatar>
+                    <div class="topic-intro-main">
+                        <span class="topic-title">{{ topicInfo.name }}</span>
+                        <el-button type="success" size="small" plain>关 注</el-button>
+                    </div>
+                    <div class="topic-description">
+                        <div style="font-weight: bold;">话题介绍:</div>
+                        <span>
+                            来分享下你的开心和不开心，此话题下内容统一由官方机器人账号「树洞robot」代发，本话题只讲故事~
+                        </span>
+                    </div>
+                </div>
+                <div class="topic-stats">
+                    <span>
+                        <div class="count">1000</div>
+                        <div class="item">沸点</div>
+                    </span>
+                    <el-divider class="post-stats-divider" direction="vertical"></el-divider>
+                    <span>
+                        <div class="count">1200</div>
+                        <div class="item">关注</div>
+                    </span>
+                </div>
+            </el-card>
+            <!-- <el-card class="box-card" shadow="never">
         <div class="author-wrap">
           <el-avatar shape="square" :size="50" :src="squareUrl">
           </el-avatar>
@@ -119,7 +119,7 @@
         </el-row>
       </el-card> -->
 
-      <!-- <el-card shadow="never">
+            <!-- <el-card shadow="never">
         <div slot="header" class="clearfix">
           <span class="fs-m">共有{{author.readers}}人参加</span>
           <el-button style="float: right; padding: 3px 0" type="text">全部 ></el-button>
@@ -132,8 +132,51 @@
           </div>
         </div>
       </el-card> -->
+        </div>
+        <el-dialog class="login" width="20%" top="30vh" :modal="true" :visible.sync="showLoginModal" close-on-click-moda="false">
+            <div slot="title" class="login-title">
+                登录
+            </div>
+            <el-form class="login-form">
+                <div>
+                    <el-input size="mini" placeholder="请输入邮箱" v-model="email" />
+                </div>
+                <div>
+                    <el-input size="mini" placeholder="请输入密码" v-model="password" />
+                </div>
+                <el-button type="primary" size="mini" class="login-button">登录</el-button>
+                <div class="login-form-registry">
+                    <div>
+                        <span>没有账号？ </span>
+                        <a @click="toRegistry">注册</a>
+                    </div>
+                    <div>
+                        <a href="">找回密码</a>
+                    </div>
+                </div>
+            </el-form>
+        </el-dialog>
+        <el-dialog width="20%" top="30vh" :modal="true" :visible.sync="showRegistryModal" close-on-click-moda="false">
+            <div slot="title" class="registry-title">
+                注册
+            </div>
+            <el-form class="registry-form">
+                <div>
+                    <el-input size="mini" placeholder="用输入用户名" v-model="username" />
+                </div>
+                <div>
+                    <el-input size="mini" placeholder="请输入邮箱" v-model="email" />
+                </div>
+                <div>
+                    <el-input size="mini" placeholder="请输入密码 (不少于6位)" v-model="password" />
+                </div>
+                <el-button type="primary" size="mini" class="registry-button">注册</el-button>
+                <div class="registry-form-login align-center">
+                    <a @click="toLogin">已有账号登录</a>
+                </div>
+            </el-form>
+        </el-dialog>
     </div>
-  </div>
 </template>
 
 <script>
@@ -142,83 +185,16 @@ export default {
     name: "Treesays",
     data() {
         return {
+            /** start 登录、注册 */
+            username: "",
+            email: "",
+            password: "",
+            /** end 登录、注册 */
             activeName: "all",
             labelPosition1: "top",
             labelPosition2: "left",
-            rules: {
-                title: [
-                    {
-                        required: true,
-                        message: "请输入求助标题",
-                        trigger: "blur"
-                    },
-                    {
-                        min: 3,
-                        max: 20,
-                        message: "长度在 3 到 20 个字符",
-                        trigger: "blur"
-                    }
-                ],
-                content: [
-                    {
-                        required: true,
-                        message: "请输入求助内容",
-                        trigger: "blur"
-                    },
-                    {
-                        min: 15,
-                        max: 2000,
-                        message: "长度在 15 到 2000 个字符",
-                        trigger: "blur"
-                    }
-                ],
-                region: [
-                    {
-                        required: true,
-                        message: "请输入所在区域",
-                        trigger: "change"
-                    }
-                ],
-                detailedAddr: [
-                    {
-                        required: true,
-                        message: "请输入详细地址",
-                        trigger: "blur"
-                    },
-                    {
-                        min: 8,
-                        max: 50,
-                        message: "长度在 8 到 50 个字符",
-                        trigger: "blur"
-                    }
-                ],
-                contactPerson: [
-                    {
-                        required: true,
-                        message: "请输入联系人",
-                        trigger: "blur"
-                    },
-                    {
-                        min: 3,
-                        max: 10,
-                        message: "长度在 3 到 10 个字符",
-                        trigger: "blur"
-                    }
-                ],
-                contactDetail: [
-                    {
-                        required: true,
-                        message: "请输入联系方式",
-                        trigger: "blur"
-                    },
-                    {
-                        min: 3,
-                        max: 20,
-                        message: "长度在 3 到 20 个字符",
-                        trigger: "blur"
-                    }
-                ]
-            },
+            showLoginModal: false,
+            showRegistryModal: false,
             topicInfo: {
                 name: "树洞一下"
             },
@@ -462,6 +438,14 @@ export default {
     methods: {
         handleClick(tab, event) {
             console.log(tab, event);
+        },
+        toLogin() {
+            this.showLoginModal = true;
+            this.showRegistryModal = false;
+        },
+        toRegistry() {
+            this.showRegistryModal = true;
+            this.showLoginModal = false;
         }
     }
 };
@@ -660,5 +644,34 @@ export default {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+.el-form div {
+    margin-bottom: 5px;
+}
+.login-title,
+.registry-title {
+    font-size: 14px;
+    margin-bottom: 0px;
+}
+.login-button,
+.registry-button {
+    width: 100%;
+}
+.login-form-registry,
+.registry-form-login {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    margin: 1rem 0px 0px 0px;
+}
+.login-form-registry a,
+.registry-form-login a {
+    text-decoration: none;
+    color: #007fff;
+    cursor: pointer;
+}
+
+.align-center {
+    justify-content: center;
 }
 </style>
