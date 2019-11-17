@@ -3,13 +3,12 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue';
 import App from './App';
+import store from './store'
 import './resources/elementUI';
 import { Message } from 'element-ui';
 import router from './router';
-import eventBus from '@/eventBus';
 // import http from './http';
 // Vue.prototype.$http = http;
-Vue.prototype.eventBus = eventBus;
 Vue.config.productionTip = false
 
 
@@ -48,6 +47,7 @@ Vue.mixin({
 new Vue({
   el: '#app',
   router,
+  store,
   components: {
     App
   },

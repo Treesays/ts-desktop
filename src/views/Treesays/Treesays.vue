@@ -354,7 +354,7 @@ export default {
         },
         loadComments() {
           // 先检查是否登录。
-          this.eventBus.$emit("showLogin", true);
+          this.$store.dispatch('showLogin', true);
         }
     }
 };

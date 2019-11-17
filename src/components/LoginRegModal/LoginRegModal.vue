@@ -47,14 +47,8 @@
 <script>
 export default {
   name: "LoginRegModal",
-  mounted() {
-    this.eventBus.$on("showLogin", data => {
-      this.showLoginModal = true;
-    });
-  },
   data() {
     return {
-      showLoginModal: false,
       username: "",
       email: "",
       password: "",
@@ -64,6 +58,16 @@ export default {
   methods: {
     toggleLogin() {
       this.isLoginActive = !this.isLoginActive;
+    }
+  },
+  computed: {
+    showLoginModal: {
+      get() {
+        return this.$store.state.showLoginModal;
+      },
+      set(value) {
+        this.$store.state.showLoginModal = value;
+      }
     }
   }
 };
