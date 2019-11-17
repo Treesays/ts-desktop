@@ -1,5 +1,6 @@
 <template>
     <div class="hc-container">
+      <LoginRegModal :showLoginModal="showLoginModal" />
         <div class="hc-posts">
             <el-tabs v-model="activeName" @tab-click="handleClick">
                 <el-tab-pane label="热门" name="all">
@@ -24,7 +25,7 @@
                             <div class="post-stats">
                                 <span>赞</span>
                                 <el-divider class="post-stats-divider" direction="vertical"></el-divider>
-                                <span>评论</span>
+                                <span @click="loadComments()">评论</span>
                                 <el-divider class="post-stats-divider" direction="vertical"></el-divider>
                                 <span>分享</span>
                             </div>
@@ -53,7 +54,7 @@
                             <div class="post-stats">
                                 <span>赞</span>
                                 <el-divider class="post-stats-divider" direction="vertical"></el-divider>
-                                <span>评论</span>
+                                <span @click="loadComments()">评论</span>
                                 <el-divider class="post-stats-divider" direction="vertical"></el-divider>
                                 <span>分享</span>
                             </div>
@@ -94,107 +95,22 @@
                     </span>
                 </div>
             </el-card>
-            <!-- <el-card class="box-card" shadow="never">
-        <div class="author-wrap">
-          <el-avatar shape="square" :size="50" :src="squareUrl">
-          </el-avatar>
-          <h5>{{ author.name }}</h5>
-          <el-button type="success" plain>关注</el-button>
         </div>
-        <h5>话题介绍</h5>
-        <p class="remark fs-s">{{author.remark}}</p>
-        <el-row :gutter="20">
-          <el-col class="text-center" :span="12">
-            <div class="grid-content bg-purple">
-              <p>{{author.hot}}</p>
-              <small>沸点</small>
-            </div>
-          </el-col>
-          <el-col class="text-center" :span="12">
-            <div class="grid-content bg-purple">
-              <p>{{author.notice}}</p>
-              <small>关注</small>
-            </div>
-          </el-col>
-        </el-row>
-      </el-card> -->
-
-            <!-- <el-card shadow="never">
-        <div slot="header" class="clearfix">
-          <span class="fs-m">共有{{author.readers}}人参加</span>
-          <el-button style="float: right; padding: 3px 0" type="text">全部 ></el-button>
-        </div>
-        <div class="readers-wrap">
-          <div class="text-center avatar" v-for="item in reader" :key="item.id">
-            <el-avatar :size="50" :src="item.url">
-            </el-avatar>
-            <small class="limit-width text-hidden">{{item.name}}</small>
-          </div>
-        </div>
-      </el-card> -->
-        </div>
-        <el-dialog class="login" width="20%" top="30vh" :modal="true" :visible.sync="showLoginModal" close-on-click-moda="false">
-            <div slot="title" class="login-title">
-                登录
-            </div>
-            <el-form class="login-form">
-                <div>
-                    <el-input size="mini" placeholder="请输入邮箱" v-model="email" />
-                </div>
-                <div>
-                    <el-input size="mini" placeholder="请输入密码" v-model="password" />
-                </div>
-                <el-button type="primary" size="mini" class="login-button">登录</el-button>
-                <div class="login-form-registry">
-                    <div>
-                        <span>没有账号？ </span>
-                        <a @click="toRegistry">注册</a>
-                    </div>
-                    <div>
-                        <a href="">找回密码</a>
-                    </div>
-                </div>
-            </el-form>
-        </el-dialog>
-        <el-dialog width="20%" top="30vh" :modal="true" :visible.sync="showRegistryModal" close-on-click-moda="false">
-            <div slot="title" class="registry-title">
-                注册
-            </div>
-            <el-form class="registry-form">
-                <div>
-                    <el-input size="mini" placeholder="用输入用户名" v-model="username" />
-                </div>
-                <div>
-                    <el-input size="mini" placeholder="请输入邮箱" v-model="email" />
-                </div>
-                <div>
-                    <el-input size="mini" placeholder="请输入密码 (不少于6位)" v-model="password" />
-                </div>
-                <el-button type="primary" size="mini" class="registry-button">注册</el-button>
-                <div class="registry-form-login align-center">
-                    <a @click="toLogin">已有账号登录</a>
-                </div>
-            </el-form>
-        </el-dialog>
     </div>
 </template>
 
 <script>
 import "./overwrite.css";
+import LoginRegModal from "@/components/LoginRegModal/LoginRegModal";
 export default {
     name: "Treesays",
+    components: { LoginRegModal },
     data() {
         return {
-            /** start 登录、注册 */
-            username: "",
-            email: "",
-            password: "",
-            /** end 登录、注册 */
             activeName: "all",
             labelPosition1: "top",
             labelPosition2: "left",
             showLoginModal: false,
-            showRegistryModal: false,
             topicInfo: {
                 name: "树洞一下"
             },
@@ -439,13 +355,9 @@ export default {
         handleClick(tab, event) {
             console.log(tab, event);
         },
-        toLogin() {
-            this.showLoginModal = true;
-            this.showRegistryModal = false;
-        },
-        toRegistry() {
-            this.showRegistryModal = true;
-            this.showLoginModal = false;
+        loadComments() {
+          // 先检查是否登录。
+          this.showLoginModal = true;
         }
     }
 };
@@ -648,28 +560,7 @@ export default {
 .el-form div {
     margin-bottom: 5px;
 }
-.login-title,
-.registry-title {
-    font-size: 14px;
-    margin-bottom: 0px;
-}
-.login-button,
-.registry-button {
-    width: 100%;
-}
-.login-form-registry,
-.registry-form-login {
-    display: flex;
-    justify-content: space-between;
-    font-size: 12px;
-    margin: 1rem 0px 0px 0px;
-}
-.login-form-registry a,
-.registry-form-login a {
-    text-decoration: none;
-    color: #007fff;
-    cursor: pointer;
-}
+
 
 .align-center {
     justify-content: center;
