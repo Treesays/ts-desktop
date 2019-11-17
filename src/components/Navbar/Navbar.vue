@@ -1,22 +1,7 @@
 <template>
     <div class="navbar flex">
-        <!-- <el-menu :default-active="$route.name" class="el-menu-nav" mode="horizontal" @select="handleSelect" background-color="#fff" active-text-color="#1989fa">
-            <div class="navWrapper">
-                <div class="flex">
-                    <span class="logo">树 说</span>
-                </div>
-                <div class="navMain flex">
-                    <el-menu-item index="home" @click="toRouter('/home')">首页</el-menu-item>
-                    <el-menu-item index="expose" @click="toRouter('/expose/home')">我要揭发</el-menu-item>
-                    <el-menu-item index="hc" @click="toRouter('/hc/list')">求助中心</el-menu-item>
-                    <el-menu-item index="4" @click="toRouter()">社区论坛</el-menu-item>
-                    <el-menu-item index="5" @click="toRouter()">相关资讯</el-menu-item>
-                    <el-menu-item index="6" @click="toRouter()">万人墙</el-menu-item>
-                </div>
-            </div>
-        </el-menu> -->
+        <LoginRegModal />
         <el-menu :default-active="$route.name" mode="horizontal" @select="handleSelect">
-
             <div class="navWrapper">
                 <div class="left-part">
                     <span class="logo"><img height="38" src="~@/assets/treesays.png" alt="logo"></span>
@@ -27,6 +12,7 @@
                 </div>
                 <div class="right-part">
                     <el-button type="primary" size="small" @click="drawer = true">发动态</el-button>
+                    <el-button type="primary" size="small" @click="triggerLogin()" plain>登 录</el-button>
                 </div>
             </div>
             <el-drawer title="发动态测试" :visible.sync="drawer" direction="rtl">
@@ -56,8 +42,10 @@
 
 <script>
 import "./overwrite.css";
+import LoginRegModal from "@/components/LoginRegModal/LoginRegModal";
 export default {
     name: "Navbar",
+    components: { LoginRegModal },
     data() {
         return {
             activeIndex: "1",
@@ -80,6 +68,9 @@ export default {
         },
         toRouter(path) {
             !path ? alert("敬请期待") : this.$router.push({ path });
+        },
+        triggerLogin() {
+            this.eventBus.$emit('showLogin', true);
         }
     }
 };

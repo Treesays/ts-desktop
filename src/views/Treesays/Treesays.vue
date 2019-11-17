@@ -1,6 +1,5 @@
 <template>
     <div class="hc-container">
-      <LoginRegModal :showLoginModal="showLoginModal" />
         <div class="hc-posts">
             <el-tabs v-model="activeName" @tab-click="handleClick">
                 <el-tab-pane label="热门" name="all">
@@ -101,16 +100,14 @@
 
 <script>
 import "./overwrite.css";
-import LoginRegModal from "@/components/LoginRegModal/LoginRegModal";
+
 export default {
     name: "Treesays",
-    components: { LoginRegModal },
     data() {
         return {
             activeName: "all",
             labelPosition1: "top",
             labelPosition2: "left",
-            showLoginModal: false,
             topicInfo: {
                 name: "树洞一下"
             },
@@ -357,7 +354,7 @@ export default {
         },
         loadComments() {
           // 先检查是否登录。
-          this.showLoginModal = true;
+          this.eventBus.$emit("showLogin", true);
         }
     }
 };

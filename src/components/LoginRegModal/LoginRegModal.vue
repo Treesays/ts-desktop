@@ -27,6 +27,7 @@
           </div>
         </div>
         <!-- end login -->
+
         <!-- register -->
         <div v-if="!isLoginActive">
           <el-input size="small" placeholder="用输入用户名" v-model="username" />
@@ -46,15 +47,20 @@
 <script>
 export default {
   name: "LoginRegModal",
+  mounted() {
+    this.eventBus.$on("showLogin", data => {
+      this.showLoginModal = true;
+    });
+  },
   data() {
     return {
+      showLoginModal: false,
       username: "",
       email: "",
       password: "",
       isLoginActive: true
     };
   },
-  props: ["showLoginModal"],
   methods: {
     toggleLogin() {
       this.isLoginActive = !this.isLoginActive;
