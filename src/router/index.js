@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Main from '@/views/Main/Main.vue'
-import Smzdm from '@/views/Smzdm/Smzdm.vue'
+import GeekToBuy from '@/views/GeekToBuy/GeekToBuy.vue'
 import Treesays from '@/views/Treesays/Treesays.vue'
 Vue.use(Router)
 
@@ -24,9 +24,9 @@ const router = new Router({
         }
       },
       {
-        path: '/Smzdm',
-        name: 'Smzdm',
-        component: Smzdm,
+        path: '/GeekToBuy',
+        name: 'GeekToBuy',
+        component: GeekToBuy,
         meta: {
           isPublic: true
         }
