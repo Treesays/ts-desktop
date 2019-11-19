@@ -4,6 +4,7 @@ import Main from '@/views/Main/Main.vue'
 import GeekToBuy from '@/views/GeekToBuy/GeekToBuy.vue'
 import GeekTalk from '@/views/GeekTalk/GeekTalk.vue'
 import GeekLove from '@/views/GeekLove/GeekLove.vue'
+import GeekCode from '@/views/GeekCode/GeekCode.vue'
 Vue.use(Router)
 
 const router = new Router({
@@ -36,6 +37,14 @@ const router = new Router({
         path: '/GeekLove',
         name: 'GeekLove',
         component: GeekLove,
+        meta: {
+          isPublic: true
+        }
+      },
+      {
+        path: '/GeekCode',
+        name: 'GeekCode',
+        component: GeekCode,
         meta: {
           isPublic: true
         }

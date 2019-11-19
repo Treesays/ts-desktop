@@ -1,123 +1,123 @@
 <template>
-    <div class="hc-container">
-        <div class="hc-posts">
-            <el-tabs v-model="activeName" @tab-click="handleClick">
-                <el-tab-pane label="热门" name="all">
-                    <div v-for="post in hotPosts" :key="post.id" class="hc-post-layout">
-                        <div class="hc-post-item">
-                            <div class="user-info">
-                                <div class="user-avatar">
-                                    <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
-                                </div>
-                                <div class="author-info">
-                                    <h3>{{post.authorInfo.name}}</h3>
-                                    <span>{{post.authorInfo.position}} @</span>
-                                    <span>{{post.authorInfo.company}}</span>
-                                </div>
-                            </div>
-                            <div class="post-content">
-                                <span>{{post.content}}</span>
-                            </div>
-                            <div class="post-tags">
-                                <el-tag v-for="category in post.categories" :key="category.id" size="small" effect="plain">{{ category.name }}</el-tag>
-                            </div>
-                            <div class="post-stats">
-                                <span>赞</span>
-                                <el-divider class="post-stats-divider" direction="vertical"></el-divider>
-                                <span @click="loadComments()">评论</span>
-                                <el-divider class="post-stats-divider" direction="vertical"></el-divider>
-                                <span>分享</span>
-                            </div>
-                        </div>
-                    </div>
-                </el-tab-pane>
-                <el-tab-pane label="最新" name="inAuth">
-                    <div v-for="post in newPosts" :key="post.id" class="hc-post-layout">
-                        <div class="hc-post-item">
-                            <div class="user-info">
-                                <div class="user-avatar">
-                                    <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
-                                </div>
-                                <div class="author-info">
-                                    <h3>{{post.authorInfo.name}}</h3>
-                                    <span>{{post.authorInfo.position}} @</span>
-                                    <span>{{post.authorInfo.company}}</span>
-                                </div>
-                            </div>
-                            <div class="post-content">
-                                <span>{{post.content}}</span>
-                            </div>
-                            <div class="post-tags">
-                                <el-tag v-for="category in post.categories" :key="category.id" size="small" effect="plain">{{ category.name }}</el-tag>
-                            </div>
-                            <div class="post-stats">
-                                <span>赞</span>
-                                <el-divider class="post-stats-divider" direction="vertical"></el-divider>
-                                <span @click="loadComments()">评论</span>
-                                <el-divider class="post-stats-divider" direction="vertical"></el-divider>
-                                <span>分享</span>
-                            </div>
-                        </div>
-                    </div>
-                </el-tab-pane>
-            </el-tabs>
-        </div>
-
-        <div class="hc-form">
-            <el-card class="box-card" shadow="never">
-                <div class="topic-wallpaper">
-                    <span class="wallpaper"></span>
+  <div class="hc-container">
+    <div class="hc-posts">
+      <el-tabs v-model="activeName" @tab-click="handleClick">
+        <el-tab-pane label="热门" name="all">
+          <div v-for="post in hotPosts" :key="post.id" class="hc-post-layout">
+            <div class="hc-post-item">
+              <div class="user-info">
+                <div class="user-avatar">
+                  <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
                 </div>
-                <div class="topic-intro">
-                    <el-avatar class="topic-avatar" shape="square" :size="50">
-                    </el-avatar>
-                    <div class="topic-intro-main">
-                        <span class="topic-title">{{ topicInfo.name }}</span>
-                        <el-button type="success" size="small" plain>关 注</el-button>
-                    </div>
-                    <div class="topic-description">
-                        <div style="font-weight: bold;">话题介绍:</div>
-                        <span>
-                            必须的信息：<br> - 个人信息: 性别，坐标，工作 - 对另一半的期待
-                        </span>
-                    </div>
+                <div class="author-info">
+                  <h3>{{post.authorInfo.name}}</h3>
+                  <span>{{post.authorInfo.position}} @</span>
+                  <span>{{post.authorInfo.company}}</span>
                 </div>
-                <div class="topic-stats">
-                    <span>
-                        <div class="count">5980</div>
-                        <div class="item">沸点</div>
-                    </span>
-                    <el-divider class="post-stats-divider" direction="vertical"></el-divider>
-                    <span>
-                        <div class="count">3000</div>
-                        <div class="item">关注</div>
-                    </span>
+              </div>
+              <div class="post-content">
+                <span>{{post.content}}</span>
+              </div>
+              <div class="post-tags">
+                <el-tag v-for="category in post.categories" :key="category.id" size="small" effect="plain">{{ category.name }}</el-tag>
+              </div>
+              <div class="post-stats">
+                <span>赞</span>
+                <el-divider class="post-stats-divider" direction="vertical"></el-divider>
+                <span @click="loadComments()">评论</span>
+                <el-divider class="post-stats-divider" direction="vertical"></el-divider>
+                <span>分享</span>
+              </div>
+            </div>
+          </div>
+        </el-tab-pane>
+        <el-tab-pane label="最新" name="inAuth">
+          <div v-for="post in newPosts" :key="post.id" class="hc-post-layout">
+            <div class="hc-post-item">
+              <div class="user-info">
+                <div class="user-avatar">
+                  <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
                 </div>
-            </el-card>
-        </div>
+                <div class="author-info">
+                  <h3>{{post.authorInfo.name}}</h3>
+                  <span>{{post.authorInfo.position}} @</span>
+                  <span>{{post.authorInfo.company}}</span>
+                </div>
+              </div>
+              <div class="post-content">
+                <span>{{post.content}}</span>
+              </div>
+              <div class="post-tags">
+                <el-tag v-for="category in post.categories" :key="category.id" size="small" effect="plain">{{ category.name }}</el-tag>
+              </div>
+              <div class="post-stats">
+                <span>赞</span>
+                <el-divider class="post-stats-divider" direction="vertical"></el-divider>
+                <span @click="loadComments()">评论</span>
+                <el-divider class="post-stats-divider" direction="vertical"></el-divider>
+                <span>分享</span>
+              </div>
+            </div>
+          </div>
+        </el-tab-pane>
+      </el-tabs>
     </div>
+
+    <div class="hc-form">
+      <el-card class="box-card" shadow="never">
+        <div class="topic-wallpaper">
+          <span class="wallpaper"></span>
+        </div>
+        <div class="topic-intro">
+          <el-avatar class="topic-avatar" shape="square" :size="50">
+          </el-avatar>
+          <div class="topic-intro-main">
+            <span class="topic-title">{{ topicInfo.name }}</span>
+            <el-button type="success" size="small" plain>关 注</el-button>
+          </div>
+          <div class="topic-description">
+            <div style="font-weight: bold;">话题介绍:</div>
+            <span>
+              show出代码，show出自己，不计语言，不计行数。
+            </span>
+          </div>
+        </div>
+        <div class="topic-stats">
+          <span>
+            <div class="count">1380</div>
+            <div class="item">沸点</div>
+          </span>
+          <el-divider class="post-stats-divider" direction="vertical"></el-divider>
+          <span>
+            <div class="count">1200</div>
+            <div class="item">关注</div>
+          </span>
+        </div>
+      </el-card>
+    </div>
+  </div>
 </template>
 
 <script>
 import "@/resources/overwrite.css";
 import "@/views/styles/views-main.css";
+
 export default {
-    name: "GeekLove",
+    name: "Treesays",
     data() {
         return {
             activeName: "all",
             labelPosition1: "top",
             labelPosition2: "left",
             topicInfo: {
-                name: "相爱相杀"
+                name: "代码秀"
             },
             posts: [
                 {
                     id: 1,
-                    content:
-                        "本人上海土著，外滩soho小2厅一间，虹桥机场附近单身loft公寓一间。欲寻前端佳人共赴云雨(误),共赴幸福...",
+                    content: "手写极简EventBus",
                     imgAttachment: [],
-                    categories: [{ id: 1, name: "相爱相杀" }],
+                    categories: [{ id: 1, name: "代码写诗" }],
                     upCount: 0,
                     shareCount: 0,
                     comments: {
@@ -152,9 +152,9 @@ export default {
                 },
                 {
                     id: 2,
-                    content: "男，遇寻道友共论佛道",
+                    content: "console.log('大锤80，小锤40')",
                     imgAttachment: [],
-                    categories: [{ id: 1, name: "相爱相杀" }],
+                    categories: [{ id: 1, name: "代码写诗" }],
                     upCount: 0,
                     shareCount: 0,
                     comments: {
@@ -179,9 +179,9 @@ export default {
                         ]
                     },
                     authorInfo: {
-                        name: "周周",
+                        name: "皓哥",
                         position: "前端开发工程师",
-                        company: "网易教育产品部",
+                        company: "阿里蚂蚁金服体验部",
                         avatar:
                             "https://avatars2.githubusercontent.com/u/13238103?s=460&v=4"
                     },
@@ -190,9 +190,9 @@ export default {
                 {
                     id: 3,
                     content:
-                        "微信号: XXXXXXXX, 高大帅气又钱多，优点：持久(专情方面)，地点: 广州",
+                        "缩略图到大图无缝切换，可以显示大长图、gif图片。功能完善、性能良好、扩展方便、使用简单。",
                     imgAttachment: [],
-                    categories: [{ id: 1, name: "相爱相杀" }],
+                    categories: [{ id: 1, name: "代码写诗" }],
                     upCount: 0,
                     shareCount: 0,
                     comments: {
@@ -218,7 +218,7 @@ export default {
                     },
                     authorInfo: {
                         name: "校长",
-                        position: "在线教育主程",
+                        position: "前端开发工程师",
                         company: "阿里蚂蚁金服体验部",
                         avatar:
                             "https://avatars2.githubusercontent.com/u/13238103?s=460&v=4"
@@ -230,7 +230,7 @@ export default {
                     content:
                         "缩略图到大图无缝切换，可以显示大长图、gif图片。功能完善、性能良好、扩展方便、使用简单。",
                     imgAttachment: [],
-                    categories: [{ id: 1, name: "相爱相杀" }],
+                    categories: [{ id: 1, name: "代码写诗" }],
                     upCount: 0,
                     shareCount: 0,
                     comments: {
@@ -268,7 +268,7 @@ export default {
                     content:
                         "缩略图到大图无缝切换，可以显示大长图、gif图片。功能完善、性能良好、扩展方便、使用简单。",
                     imgAttachment: [],
-                    categories: [{ id: 1, name: "相爱相杀" }],
+                    categories: [{ id: 1, name: "代码写诗" }],
                     upCount: 0,
                     shareCount: 0,
                     comments: {
@@ -362,13 +362,13 @@ export default {
 <!-- Add 'scoped' attribute to limit CSS to this component only -->
 <style scoped>
 .topic-wallpaper .wallpaper {
-    background-image: url("~@/assets/treesays_love.png");
+    background-image: url("~@/assets/treesays_code.png");
     background-repeat: no-repeat;
     background-position: 50%;
     background-size: 120%;
 }
 .topic-intro .topic-avatar {
-    background-image: url("~@/assets/treesays_love.png");
+    background-image: url("~@/assets/treesays_code.png");
     background-size: cover;
     background-position-x: 50%;
 }
