@@ -7,10 +7,10 @@
           <span class="logo">
             <img height="38" src="~@/assets/treesays.png" alt="logo" />
           </span>
-          <el-menu-item index="Treesays" @click="toRouter('/home')">树洞一下</el-menu-item>
-          <el-menu-item index="Smzdm" @click="toRouter('/GeekToBuy')">什么值得买</el-menu-item>
-          <el-menu-item index="3" @click="toRouter('')">代码秀</el-menu-item>
-          <el-menu-item index="4" @click="toRouter('/GeekLove')">相爱相杀</el-menu-item>
+          <el-menu-item index="GeekTalk" @click="toRouter('/home')">树洞一下</el-menu-item>
+          <el-menu-item index="GeekToBuy" @click="toRouter('/GeekToBuy')">什么值得买</el-menu-item>
+          <el-menu-item index="GeekCode" @click="toRouter('/GeekCode')">代码秀</el-menu-item>
+          <el-menu-item index="GeekLove" @click="toRouter('/GeekLove')">相爱相杀</el-menu-item>
         </div>
         <div class="right-part">
           <el-button type="primary" size="small" @click="drawer = true">发动态</el-button>
