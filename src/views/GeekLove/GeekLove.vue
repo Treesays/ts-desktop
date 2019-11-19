@@ -1,101 +1,101 @@
 <template>
-  <div class="hc-container">
-    <div class="hc-posts">
-      <el-tabs v-model="activeName" @tab-click="handleClick">
-        <el-tab-pane label="热门" name="all">
-          <div v-for="post in hotPosts" :key="post.id" class="hc-post-layout">
-            <div class="hc-post-item">
-              <div class="user-info">
-                <div class="user-avatar">
-                  <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
-                </div>
-                <div class="author-info">
-                  <h3>{{post.authorInfo.name}}</h3>
-                  <span>{{post.authorInfo.position}} @</span>
-                  <span>{{post.authorInfo.company}}</span>
-                </div>
-              </div>
-              <div class="post-content">
-                <span>{{post.content}}</span>
-              </div>
-              <div class="post-tags">
-                <el-tag v-for="category in post.categories" :key="category.id" size="small" effect="plain">{{ category.name }}</el-tag>
-              </div>
-              <div class="post-stats">
-                <span>赞</span>
-                <el-divider class="post-stats-divider" direction="vertical"></el-divider>
-                <span @click="loadComments()">评论</span>
-                <el-divider class="post-stats-divider" direction="vertical"></el-divider>
-                <span>分享</span>
-              </div>
-            </div>
-          </div>
-        </el-tab-pane>
-        <el-tab-pane label="最新" name="inAuth">
-          <div v-for="post in newPosts" :key="post.id" class="hc-post-layout">
-            <div class="hc-post-item">
-              <div class="user-info">
-                <div class="user-avatar">
-                  <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
-                </div>
-                <div class="author-info">
-                  <h3>{{post.authorInfo.name}}</h3>
-                  <span>{{post.authorInfo.position}} @</span>
-                  <span>{{post.authorInfo.company}}</span>
-                </div>
-              </div>
-              <div class="post-content">
-                <span>{{post.content}}</span>
-              </div>
-              <div class="post-tags">
-                <el-tag v-for="category in post.categories" :key="category.id" size="small" effect="plain">{{ category.name }}</el-tag>
-              </div>
-              <div class="post-stats">
-                <span>赞</span>
-                <el-divider class="post-stats-divider" direction="vertical"></el-divider>
-                <span @click="loadComments()">评论</span>
-                <el-divider class="post-stats-divider" direction="vertical"></el-divider>
-                <span>分享</span>
-              </div>
-            </div>
-          </div>
-        </el-tab-pane>
-      </el-tabs>
-    </div>
+    <div class="hc-container">
+        <div class="hc-posts">
+            <el-tabs v-model="activeName" @tab-click="handleClick">
+                <el-tab-pane label="热门" name="all">
+                    <div v-for="post in hotPosts" :key="post.id" class="hc-post-layout">
+                        <div class="hc-post-item">
+                            <div class="user-info">
+                                <div class="user-avatar">
+                                    <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
+                                </div>
+                                <div class="author-info">
+                                    <h3>{{post.authorInfo.name}}</h3>
+                                    <span>{{post.authorInfo.position}} @</span>
+                                    <span>{{post.authorInfo.company}}</span>
+                                </div>
+                            </div>
+                            <div class="post-content">
+                                <span>{{post.content}}</span>
+                            </div>
+                            <div class="post-tags">
+                                <el-tag v-for="category in post.categories" :key="category.id" size="small" effect="plain">{{ category.name }}</el-tag>
+                            </div>
+                            <div class="post-stats">
+                                <span>赞</span>
+                                <el-divider class="post-stats-divider" direction="vertical"></el-divider>
+                                <span @click="loadComments()">评论</span>
+                                <el-divider class="post-stats-divider" direction="vertical"></el-divider>
+                                <span>分享</span>
+                            </div>
+                        </div>
+                    </div>
+                </el-tab-pane>
+                <el-tab-pane label="最新" name="inAuth">
+                    <div v-for="post in newPosts" :key="post.id" class="hc-post-layout">
+                        <div class="hc-post-item">
+                            <div class="user-info">
+                                <div class="user-avatar">
+                                    <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
+                                </div>
+                                <div class="author-info">
+                                    <h3>{{post.authorInfo.name}}</h3>
+                                    <span>{{post.authorInfo.position}} @</span>
+                                    <span>{{post.authorInfo.company}}</span>
+                                </div>
+                            </div>
+                            <div class="post-content">
+                                <span>{{post.content}}</span>
+                            </div>
+                            <div class="post-tags">
+                                <el-tag v-for="category in post.categories" :key="category.id" size="small" effect="plain">{{ category.name }}</el-tag>
+                            </div>
+                            <div class="post-stats">
+                                <span>赞</span>
+                                <el-divider class="post-stats-divider" direction="vertical"></el-divider>
+                                <span @click="loadComments()">评论</span>
+                                <el-divider class="post-stats-divider" direction="vertical"></el-divider>
+                                <span>分享</span>
+                            </div>
+                        </div>
+                    </div>
+                </el-tab-pane>
+            </el-tabs>
+        </div>
 
-    <div class="hc-form">
-      <el-card class="box-card" shadow="never">
-        <div class="topic-wallpaper">
-          <span class="wallpaper"></span>
+        <div class="hc-form">
+            <el-card class="box-card" shadow="never">
+                <div class="topic-wallpaper">
+                    <span class="wallpaper"></span>
+                </div>
+                <div class="topic-intro">
+                    <el-avatar class="topic-avatar" shape="square" :size="50">
+                    </el-avatar>
+                    <div class="topic-intro-main">
+                        <span class="topic-title">{{ topicInfo.name }}</span>
+                        <el-button type="success" size="small" plain>关 注</el-button>
+                    </div>
+                    <div class="topic-description">
+                        <div style="font-weight: bold;">话题介绍:</div>
+                        <span>
+                            必须的信息：<br> - 个人信息: 性别，坐标，工作 - 对另一半的期待
+                        </span>
+                    </div>
+                </div>
+                <div class="topic-stats">
+                    <span>
+                        <div class="count">5980</div>
+                        <div class="item">沸点</div>
+                    </span>
+                    <el-divider class="post-stats-divider" direction="vertical"></el-divider>
+                    <span>
+                        <div class="count">3000</div>
+                        <div class="item">关注</div>
+                    </span>
+                </div>
+            </el-card>
         </div>
-        <div class="topic-intro">
-          <el-avatar class="topic-avatar" shape="square" :size="50">
-          </el-avatar>
-          <div class="topic-intro-main">
-            <span class="topic-title">{{ topicInfo.name }}</span>
-            <el-button type="success" size="small" plain>关 注</el-button>
-          </div>
-          <div class="topic-description">
-            <div style="font-weight: bold;">话题介绍:</div>
-            <span>
-              必须的信息：<br> - 个人信息: 性别，坐标，工作 - 对另一半的期待
-            </span>
-          </div>
-        </div>
-        <div class="topic-stats">
-          <span>
-            <div class="count">5980</div>
-            <div class="item">沸点</div>
-          </span>
-          <el-divider class="post-stats-divider" direction="vertical"></el-divider>
-          <span>
-            <div class="count">3000</div>
-            <div class="item">关注</div>
-          </span>
-        </div>
-      </el-card>
     </div>
-  </div>
 </template>
 
 <script>
@@ -361,4 +361,15 @@ export default {
 
 <!-- Add 'scoped' attribute to limit CSS to this component only -->
 <style scoped>
+.topic-wallpaper .wallpaper {
+    background-image: url("~@/assets/treesays_love.png");
+    background-repeat: no-repeat;
+    background-position: 50%;
+    background-size: 120%;
+}
+.topic-intro .topic-avatar {
+    background-image: url("~@/assets/treesays_love.png");
+    background-size: cover;
+    background-position-x: 50%;
+}
 </style>

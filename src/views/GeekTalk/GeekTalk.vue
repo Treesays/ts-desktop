@@ -362,4 +362,15 @@ export default {
 
 <!-- Add 'scoped' attribute to limit CSS to this component only -->
 <style scoped>
+.topic-wallpaper .wallpaper {
+    background-image: url("~@/assets/treesays_wallpaper.png");
+    background-repeat: no-repeat;
+    background-position: 50%;
+    background-size: 120%;
+}
+.topic-intro .topic-avatar {
+    background-image: url("~@/assets/treesays_wallpaper.png");
+    background-size: cover;
+    background-position-x: 50%;
+}
 </style>

@@ -125,7 +125,6 @@
 }
 
 .topic-wallpaper .wallpaper {
-  background: url("~@/assets/treesays_love.png");
   display: inline-block;
   width: 100%;
   height: 100%;
@@ -148,7 +147,6 @@
 .topic-intro .topic-avatar {
   position: absolute;
   top: -1.5rem;
-  background: url("~@/assets/treesays_love.png");
   background-size: cover;
   background-position-x: 50%;
 }
