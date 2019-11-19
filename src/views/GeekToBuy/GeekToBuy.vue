@@ -1,12 +1,12 @@
 <template>
   <div>
-    smzdm
+    帮你try and before you buy
   </div>
 </template>
 
 <script>
 export default {
-    name: 'Smzdm',
+    name: 'GeekToBuy',
     data() {
         return {
             msg: ''

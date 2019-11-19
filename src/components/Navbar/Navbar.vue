@@ -8,7 +8,7 @@
             <img height="38" src="~@/assets/treesays.png" alt="logo" />
           </span>
           <el-menu-item index="Treesays" @click="toRouter('/home')">树洞一下</el-menu-item>
-          <el-menu-item index="Smzdm" @click="toRouter('/smzdm')">什么值得买</el-menu-item>
+          <el-menu-item index="Smzdm" @click="toRouter('/GeekToBuy')">什么值得买</el-menu-item>
           <el-menu-item index="3" @click="toRouter('')">代码秀</el-menu-item>
           <el-menu-item index="4" @click="toRouter('')">相爱相杀</el-menu-item>
         </div>
