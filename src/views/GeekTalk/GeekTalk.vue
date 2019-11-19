@@ -99,8 +99,8 @@
 </template>
 
 <script>
-import "./overwrite.css";
-
+import "@/resources/overwrite.css";
+import "@/views/styles/views-main.css";
 export default {
     name: "Treesays",
     data() {
@@ -353,8 +353,8 @@ export default {
             console.log(tab, event);
         },
         loadComments() {
-          // 先检查是否登录。
-          this.$store.dispatch('showLogin', true);
+            // 先检查是否登录。
+            this.$store.dispatch("showLogin", true);
         }
     }
 };
@@ -362,204 +362,4 @@ export default {
 
 <!-- Add 'scoped' attribute to limit CSS to this component only -->
 <style scoped>
-.hc-container {
-    display: flex;
-    flex-direction: row;
-    width: 960px;
-    margin: 20px auto;
-    justify-content: space-between;
-    background-color: #f4f4f5;
-}
-.hc-posts {
-    width: 66%;
-    background-color: #f4f4f5;
-    /* padding: 15px; */
-}
-.hc-form {
-    width: 31.5%;
-    background-color: #f4f4f5;
-}
-.hc-post-layout {
-    display: flex;
-    flex-direction: column;
-    background-color: #fff;
-    margin-bottom: 8px;
-}
-.hc-post-item {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-.user-info {
-    display: flex;
-    padding: 16px 2rem 0 20px;
-}
-.user-avatar {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.author-info {
-    color: #8a9aa9;
-    font-size: 0.82rem;
-    margin-left: 0.8rem;
-}
-.author-info h3 {
-    color: #2e3135;
-    margin: 0;
-    font-size: 0.95rem;
-}
-.author-info span {
-    display: inline-block;
-    margin-top: 0.24rem;
-}
-
-.post-content {
-    color: #17181a;
-    font-size: 0.95rem;
-    line-height: 1.6;
-    margin: 5px 3.3rem 0 5rem;
-}
-.post-tags {
-    margin: 5px 3.3rem 0.85rem 5rem;
-}
-.post-stats {
-    display: flex;
-    border-top: 1px solid #ebebeb;
-    justify-content: space-evenly;
-    height: 34px;
-}
-.post-stats-divider {
-    width: 1px;
-    height: 65%;
-    margin: auto 8px;
-    vertical-align: middle;
-    position: relative;
-}
-.post-stats span {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    color: #8a93a0;
-    font-size: 0.9rem;
-}
-.author-wrap {
-    text-align: center;
-    z-index: 1;
-}
-.fs-s {
-    font-size: 12px;
-}
-.fs-m {
-    font-size: 16px;
-}
-.text-center {
-    text-align: center;
-}
-.box-card {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 10px;
-    min-height: 320px;
-}
-.topic-wallpaper {
-    display: flex;
-    height: 109px;
-}
-.topic-wallpaper .wallpaper {
-    background: url("~@/assets/treesays_wallpaper.png");
-    display: inline-block;
-    width: 100%;
-    height: 100%;
-    background-position: 50%;
-    background-size: 120%;
-    background-repeat: no-repeat;
-    filter: blur(6.3px);
-    transform: scale(1.1);
-}
-.topic-intro {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-    border-bottom: 1px solid rgba(92, 96, 102, 0.1);
-}
-.topic-intro .topic-avatar {
-    position: absolute;
-    top: -1.5rem;
-    background: url("~@/assets/treesays_wallpaper.png");
-    background-size: cover;
-    background-position-x: 50%;
-}
-.topic-intro .topic-intro-main {
-    margin-top: 2rem;
-    display: flex;
-    flex-direction: column;
-}
-.topic-title {
-    margin: 8px 0;
-    font-size: 0.95rem;
-    font-weight: bold;
-}
-.topic-description {
-    font-size: 0.85rem;
-    margin: 0 14px;
-    margin-bottom: 12px;
-}
-.topic-stats {
-    height: 58px;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-}
-.topic-stats span {
-    padding: 12px 0;
-}
-.topic-stats .item {
-    padding-top: 6px;
-    font-size: 0.85rem;
-    text-align: center;
-    color: #8a9aa9;
-}
-.topic-stats .count {
-    font-weight: bold;
-}
-.avatar {
-    display: inline-block;
-    width: 25%;
-}
-.flex-row {
-    display: flex;
-    flex-flow: row;
-    justify-content: flex-start;
-    align-items: center;
-}
-.flex-around {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    flex-wrap: wrap;
-}
-.limit-width {
-    display: block;
-    text-align: center;
-    width: 100%;
-    font-size: 12px;
-    color: #909090;
-}
-.text-hidden {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-.el-form div {
-    margin-bottom: 5px;
-}
-
-
-.align-center {
-    justify-content: center;
-}
 </style>
