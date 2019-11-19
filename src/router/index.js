@@ -2,7 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Main from '@/views/Main/Main.vue'
 import GeekToBuy from '@/views/GeekToBuy/GeekToBuy.vue'
-import Treesays from '@/views/Treesays/Treesays.vue'
+import GeekTalk from '@/views/GeekTalk/GeekTalk.vue'
+import GeekLove from '@/views/GeekLove/GeekLove.vue'
 Vue.use(Router)
 
 const router = new Router({
@@ -17,8 +18,8 @@ const router = new Router({
       redirect: '/home',
       children: [{
         path: '/home',
-        name: 'Treesays',
-        component: Treesays,
+        name: 'GeekTalk',
+        component: GeekTalk,
         meta: {
           isPublic: true
         }
@@ -30,7 +31,15 @@ const router = new Router({
         meta: {
           isPublic: true
         }
-      }
+      },
+      {
+        path: '/GeekLove',
+        name: 'GeekLove',
+        component: GeekLove,
+        meta: {
+          isPublic: true
+        }
+      },
       ]
     },
 

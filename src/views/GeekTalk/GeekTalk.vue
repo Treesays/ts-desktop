@@ -1,123 +1,123 @@
 <template>
-  <div class="hc-container">
-    <div class="hc-posts">
-      <el-tabs v-model="activeName" @tab-click="handleClick">
-        <el-tab-pane label="热门" name="all">
-          <div v-for="post in hotPosts" :key="post.id" class="hc-post-layout">
-            <div class="hc-post-item">
-              <div class="user-info">
-                <div class="user-avatar">
-                  <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
-                </div>
-                <div class="author-info">
-                  <h3>{{post.authorInfo.name}}</h3>
-                  <span>{{post.authorInfo.position}} @</span>
-                  <span>{{post.authorInfo.company}}</span>
-                </div>
-              </div>
-              <div class="post-content">
-                <span>{{post.content}}</span>
-              </div>
-              <div class="post-tags">
-                <el-tag v-for="category in post.categories" :key="category.id" size="small" effect="plain">{{ category.name }}</el-tag>
-              </div>
-              <div class="post-stats">
-                <span>赞</span>
-                <el-divider class="post-stats-divider" direction="vertical"></el-divider>
-                <span @click="loadComments()">评论</span>
-                <el-divider class="post-stats-divider" direction="vertical"></el-divider>
-                <span>分享</span>
-              </div>
-            </div>
-          </div>
-        </el-tab-pane>
-        <el-tab-pane label="最新" name="inAuth">
-          <div v-for="post in newPosts" :key="post.id" class="hc-post-layout">
-            <div class="hc-post-item">
-              <div class="user-info">
-                <div class="user-avatar">
-                  <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
-                </div>
-                <div class="author-info">
-                  <h3>{{post.authorInfo.name}}</h3>
-                  <span>{{post.authorInfo.position}} @</span>
-                  <span>{{post.authorInfo.company}}</span>
-                </div>
-              </div>
-              <div class="post-content">
-                <span>{{post.content}}</span>
-              </div>
-              <div class="post-tags">
-                <el-tag v-for="category in post.categories" :key="category.id" size="small" effect="plain">{{ category.name }}</el-tag>
-              </div>
-              <div class="post-stats">
-                <span>赞</span>
-                <el-divider class="post-stats-divider" direction="vertical"></el-divider>
-                <span @click="loadComments()">评论</span>
-                <el-divider class="post-stats-divider" direction="vertical"></el-divider>
-                <span>分享</span>
-              </div>
-            </div>
-          </div>
-        </el-tab-pane>
-      </el-tabs>
-    </div>
+    <div class="hc-container">
+        <div class="hc-posts">
+            <el-tabs v-model="activeName" @tab-click="handleClick">
+                <el-tab-pane label="热门" name="all">
+                    <div v-for="post in hotPosts" :key="post.id" class="hc-post-layout">
+                        <div class="hc-post-item">
+                            <div class="user-info">
+                                <div class="user-avatar">
+                                    <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
+                                </div>
+                                <div class="author-info">
+                                    <h3>{{post.authorInfo.name}}</h3>
+                                    <span>{{post.authorInfo.position}} @</span>
+                                    <span>{{post.authorInfo.company}}</span>
+                                </div>
+                            </div>
+                            <div class="post-content">
+                                <span>{{post.content}}</span>
+                            </div>
+                            <div class="post-tags">
+                                <el-tag v-for="category in post.categories" :key="category.id" size="small" effect="plain">{{ category.name }}</el-tag>
+                            </div>
+                            <div class="post-stats">
+                                <span>赞</span>
+                                <el-divider class="post-stats-divider" direction="vertical"></el-divider>
+                                <span @click="loadComments()">评论</span>
+                                <el-divider class="post-stats-divider" direction="vertical"></el-divider>
+                                <span>分享</span>
+                            </div>
+                        </div>
+                    </div>
+                </el-tab-pane>
+                <el-tab-pane label="最新" name="inAuth">
+                    <div v-for="post in newPosts" :key="post.id" class="hc-post-layout">
+                        <div class="hc-post-item">
+                            <div class="user-info">
+                                <div class="user-avatar">
+                                    <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
+                                </div>
+                                <div class="author-info">
+                                    <h3>{{post.authorInfo.name}}</h3>
+                                    <span>{{post.authorInfo.position}} @</span>
+                                    <span>{{post.authorInfo.company}}</span>
+                                </div>
+                            </div>
+                            <div class="post-content">
+                                <span>{{post.content}}</span>
+                            </div>
+                            <div class="post-tags">
+                                <el-tag v-for="category in post.categories" :key="category.id" size="small" effect="plain">{{ category.name }}</el-tag>
+                            </div>
+                            <div class="post-stats">
+                                <span>赞</span>
+                                <el-divider class="post-stats-divider" direction="vertical"></el-divider>
+                                <span @click="loadComments()">评论</span>
+                                <el-divider class="post-stats-divider" direction="vertical"></el-divider>
+                                <span>分享</span>
+                            </div>
+                        </div>
+                    </div>
+                </el-tab-pane>
+            </el-tabs>
+        </div>
 
-    <div class="hc-form">
-      <el-card class="box-card" shadow="never">
-        <div class="topic-wallpaper">
-          <span class="wallpaper"></span>
+        <div class="hc-form">
+            <el-card class="box-card" shadow="never">
+                <div class="topic-wallpaper">
+                    <span class="wallpaper"></span>
+                </div>
+                <div class="topic-intro">
+                    <el-avatar class="topic-avatar" shape="square" :size="50">
+                    </el-avatar>
+                    <div class="topic-intro-main">
+                        <span class="topic-title">{{ topicInfo.name }}</span>
+                        <el-button type="success" size="small" plain>关 注</el-button>
+                    </div>
+                    <div class="topic-description">
+                        <div style="font-weight: bold;">话题介绍:</div>
+                        <span>
+                            来分享下你的开心和不开心，此话题下内容统一由官方机器人账号「树洞robot」代发，本话题只讲故事~
+                        </span>
+                    </div>
+                </div>
+                <div class="topic-stats">
+                    <span>
+                        <div class="count">1000</div>
+                        <div class="item">沸点</div>
+                    </span>
+                    <el-divider class="post-stats-divider" direction="vertical"></el-divider>
+                    <span>
+                        <div class="count">1200</div>
+                        <div class="item">关注</div>
+                    </span>
+                </div>
+            </el-card>
         </div>
-        <div class="topic-intro">
-          <el-avatar class="topic-avatar" shape="square" :size="50">
-          </el-avatar>
-          <div class="topic-intro-main">
-            <span class="topic-title">{{ topicInfo.name }}</span>
-            <el-button type="success" size="small" plain>关 注</el-button>
-          </div>
-          <div class="topic-description">
-            <div style="font-weight: bold;">话题介绍:</div>
-            <span>
-              值不值得买，是一件很头痛的事情。树洞评测，帮你try and before you buy。
-            </span>
-          </div>
-        </div>
-        <div class="topic-stats">
-          <span>
-            <div class="count">693</div>
-            <div class="item">沸点</div>
-          </span>
-          <el-divider class="post-stats-divider" direction="vertical"></el-divider>
-          <span>
-            <div class="count">5000</div>
-            <div class="item">关注</div>
-          </span>
-        </div>
-      </el-card>
     </div>
-  </div>
 </template>
 
 <script>
 import "@/resources/overwrite.css";
 import "@/views/styles/views-main.css";
 export default {
-    name: "GeekToBuy",
+    name: "Treesays",
     data() {
         return {
             activeName: "all",
             labelPosition1: "top",
             labelPosition2: "left",
             topicInfo: {
-                name: "什么值得买"
+                name: "树洞一下"
             },
             posts: [
                 {
                     id: 1,
                     content:
-                        "入手外星人R17 for 2019 一台，重量4kg，加上电源达到4.5kg，可谓是程序员上下班之余锻炼臂力...",
+                        "缩略图到大图无缝切换，可以显示大长图、gif图片。功能完善、性能良好、扩展方便、使用简单。",
                     imgAttachment: [],
-                    categories: [{ id: 1, name: "什么值得买" }],
+                    categories: [{ id: 1, name: "代码写诗" }],
                     upCount: 0,
                     shareCount: 0,
                     comments: {
@@ -153,9 +153,9 @@ export default {
                 {
                     id: 2,
                     content:
-                        "新购入一台iphone23，14.5英寸屏幕，采用苹果自行开发的switch系统。以下是详细评测...",
+                        "缩略图到大图无缝切换，可以显示大长图、gif图片。功能完善、性能良好、扩展方便、使用简单。",
                     imgAttachment: [],
-                    categories: [{ id: 1, name: "什么值得买" }],
+                    categories: [{ id: 1, name: "代码写诗" }],
                     upCount: 0,
                     shareCount: 0,
                     comments: {
@@ -180,9 +180,9 @@ export default {
                         ]
                     },
                     authorInfo: {
-                        name: "周周",
+                        name: "校长",
                         position: "前端开发工程师",
-                        company: "网易教育产品部",
+                        company: "阿里蚂蚁金服体验部",
                         avatar:
                             "https://avatars2.githubusercontent.com/u/13238103?s=460&v=4"
                     },
@@ -190,9 +190,10 @@ export default {
                 },
                 {
                     id: 3,
-                    content: "纯属灌水",
+                    content:
+                        "缩略图到大图无缝切换，可以显示大长图、gif图片。功能完善、性能良好、扩展方便、使用简单。",
                     imgAttachment: [],
-                    categories: [{ id: 1, name: "什么值得买" }],
+                    categories: [{ id: 1, name: "代码写诗" }],
                     upCount: 0,
                     shareCount: 0,
                     comments: {
@@ -230,7 +231,7 @@ export default {
                     content:
                         "缩略图到大图无缝切换，可以显示大长图、gif图片。功能完善、性能良好、扩展方便、使用简单。",
                     imgAttachment: [],
-                    categories: [{ id: 1, name: "什么值得买" }],
+                    categories: [{ id: 1, name: "代码写诗" }],
                     upCount: 0,
                     shareCount: 0,
                     comments: {
@@ -268,7 +269,7 @@ export default {
                     content:
                         "缩略图到大图无缝切换，可以显示大长图、gif图片。功能完善、性能良好、扩展方便、使用简单。",
                     imgAttachment: [],
-                    categories: [{ id: 1, name: "什么值得买" }],
+                    categories: [{ id: 1, name: "代码写诗" }],
                     upCount: 0,
                     shareCount: 0,
                     comments: {
