@@ -78,20 +78,20 @@
           <div class="topic-description">
             <div style="font-weight: bold;">话题介绍:</div>
             <span>
-              值不值得买，是一件很头痛的事情。树洞评测，帮你try and before you buy。
+              show出代码，show出自己，不计语言，不计行数。
             </span>
           </div>
         </div>
         <div class="topic-stats">
-          <span>
-              <div class="count">693</div>
-              <div class="item">沸点</div>
-          </span>
+                    <span>
+                        <div class="count">1380</div>
+                        <div class="item">沸点</div>
+                    </span>
           <el-divider class="post-stats-divider" direction="vertical"></el-divider>
           <span>
-              <div class="count">5000</div>
-              <div class="item">关注</div>
-          </span>
+                        <div class="count">1200</div>
+                        <div class="item">关注</div>
+                    </span>
         </div>
       </el-card>
     </div>
@@ -99,25 +99,25 @@
 </template>
 
 <script>
-  import './overwrite.css'
+  import "./overwrite.css";
 
   export default {
-    name: 'GeekToBuy',
+    name: "Treesays",
     data() {
       return {
         activeName: "all",
         labelPosition1: "top",
         labelPosition2: "left",
         topicInfo: {
-          name: "什么值得买"
+          name: "代码秀"
         },
         posts: [
           {
             id: 1,
             content:
-              "入手外星人R17 for 2019 一台，重量4kg，加上电源达到4.5kg，可谓是程序员上下班之余锻炼臂力...",
+              "手写极简EventBus",
             imgAttachment: [],
-            categories: [{id: 1, name: "值不值得买"}, {id: 2, name: "产品吐槽"}],
+            categories: [{ id: 1, name: "代码写诗" }],
             upCount: 0,
             shareCount: 0,
             comments: {
@@ -153,9 +153,9 @@
           {
             id: 2,
             content:
-              "新购入一台iphone23，14.5英寸屏幕，采用苹果自行开发的switch系统。以下是详细评测...",
+              "console.log('大锤80，小锤40')",
             imgAttachment: [],
-            categories: [{id: 1, name: "值不值得买"}],
+            categories: [{ id: 1, name: "代码写诗" }],
             upCount: 0,
             shareCount: 0,
             comments: {
@@ -180,9 +180,9 @@
               ]
             },
             authorInfo: {
-              name: "周周",
+              name: "皓哥",
               position: "前端开发工程师",
-              company: "网易教育产品部",
+              company: "阿里蚂蚁金服体验部",
               avatar:
                 "https://avatars2.githubusercontent.com/u/13238103?s=460&v=4"
             },
@@ -191,9 +191,9 @@
           {
             id: 3,
             content:
-              "纯属灌水",
+              "缩略图到大图无缝切换，可以显示大长图、gif图片。功能完善、性能良好、扩展方便、使用简单。",
             imgAttachment: [],
-            categories: [{id: 1, name: "无意义的帖子"}],
+            categories: [{ id: 1, name: "代码写诗" }],
             upCount: 0,
             shareCount: 0,
             comments: {
@@ -231,7 +231,7 @@
             content:
               "缩略图到大图无缝切换，可以显示大长图、gif图片。功能完善、性能良好、扩展方便、使用简单。",
             imgAttachment: [],
-            categories: [{id: 1, name: "代码写诗"}],
+            categories: [{ id: 1, name: "代码写诗" }],
             upCount: 0,
             shareCount: 0,
             comments: {
@@ -269,7 +269,7 @@
             content:
               "缩略图到大图无缝切换，可以显示大长图、gif图片。功能完善、性能良好、扩展方便、使用简单。",
             imgAttachment: [],
-            categories: [{id: 1, name: "代码写诗"}],
+            categories: [{ id: 1, name: "代码写诗" }],
             upCount: 0,
             shareCount: 0,
             comments: {
@@ -336,7 +336,7 @@
             name: "无名人士灭绝师太",
             url:
               "https://leancloud-gold-cdn.xitu.io/pui5ANRQcNkH6EAaPTAIPuA?imageView2/1/w/100/h/100/q/85/format/webp/interlace/1"
-          },
+          }
         ]
       };
     },
@@ -443,7 +443,6 @@
     height: 100%;
     color: #8a93a0;
     font-size: 0.9rem;
-    cursor: pointer;
   }
   .author-wrap {
     text-align: center;
@@ -469,7 +468,7 @@
     height: 109px;
   }
   .topic-wallpaper .wallpaper {
-    background: url("~@/assets/treesays_buy.jpg");
+    background: url("~@/assets/treesays_code.png");
     display: inline-block;
     width: 100%;
     height: 100%;
@@ -490,7 +489,7 @@
   .topic-intro .topic-avatar {
     position: absolute;
     top: -1.5rem;
-    background: url("~@/assets/treesays_buy.jpg");
+    background: url("~@/assets/treesays_code.png");
     background-size: cover;
     background-position-x: 50%;
   }
