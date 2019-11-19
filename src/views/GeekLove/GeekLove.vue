@@ -78,18 +78,20 @@
           <div class="topic-description">
             <div style="font-weight: bold;">话题介绍:</div>
             <span>
-              值不值得买，是一件很头痛的事情。树洞评测，帮你try and before you buy。
+              必须的信息：<br>
+              - 个人信息: 性别，坐标，工作
+              - 对另一半的期待
             </span>
           </div>
         </div>
         <div class="topic-stats">
           <span>
-              <div class="count">693</div>
+              <div class="count">5980</div>
               <div class="item">沸点</div>
           </span>
           <el-divider class="post-stats-divider" direction="vertical"></el-divider>
           <span>
-              <div class="count">5000</div>
+              <div class="count">3000</div>
               <div class="item">关注</div>
           </span>
         </div>
@@ -102,22 +104,22 @@
   import './overwrite.css'
 
   export default {
-    name: 'GeekToBuy',
+    name: 'GeekLove',
     data() {
       return {
         activeName: "all",
         labelPosition1: "top",
         labelPosition2: "left",
         topicInfo: {
-          name: "什么值得买"
+          name: "相爱相杀"
         },
         posts: [
           {
             id: 1,
             content:
-              "入手外星人R17 for 2019 一台，重量4kg，加上电源达到4.5kg，可谓是程序员上下班之余锻炼臂力...",
+              "本人上海土著，外滩soho小2厅一间，虹桥机场附近单身loft公寓一间。欲寻前端佳人共赴云雨(误),共赴幸福...",
             imgAttachment: [],
-            categories: [{id: 1, name: "值不值得买"}, {id: 2, name: "产品吐槽"}],
+            categories: [{id: 1, name: "程序员征婚"}],
             upCount: 0,
             shareCount: 0,
             comments: {
@@ -153,9 +155,9 @@
           {
             id: 2,
             content:
-              "新购入一台iphone23，14.5英寸屏幕，采用苹果自行开发的switch系统。以下是详细评测...",
+              "男，遇寻道友共论佛道",
             imgAttachment: [],
-            categories: [{id: 1, name: "值不值得买"}],
+            categories: [{id: 1, name: "笔友征信"}],
             upCount: 0,
             shareCount: 0,
             comments: {
@@ -191,9 +193,9 @@
           {
             id: 3,
             content:
-              "纯属灌水",
+              "微信号: XXXXXXXX, 高大帅气又钱多，优点：持久(专情方面)，地点: 广州",
             imgAttachment: [],
-            categories: [{id: 1, name: "无意义的帖子"}],
+            categories: [{id: 1, name: "约否"}],
             upCount: 0,
             shareCount: 0,
             comments: {
@@ -219,7 +221,7 @@
             },
             authorInfo: {
               name: "校长",
-              position: "前端开发工程师",
+              position: "在线教育主程",
               company: "阿里蚂蚁金服体验部",
               avatar:
                 "https://avatars2.githubusercontent.com/u/13238103?s=460&v=4"
@@ -469,7 +471,7 @@
     height: 109px;
   }
   .topic-wallpaper .wallpaper {
-    background: url("~@/assets/treesays_buy.jpg");
+    background: url("~@/assets/treesays_love.png");
     display: inline-block;
     width: 100%;
     height: 100%;
@@ -490,7 +492,7 @@
   .topic-intro .topic-avatar {
     position: absolute;
     top: -1.5rem;
-    background: url("~@/assets/treesays_buy.jpg");
+    background: url("~@/assets/treesays_love.png");
     background-size: cover;
     background-position-x: 50%;
   }
