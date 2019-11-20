@@ -13,8 +13,12 @@
           <el-menu-item index="GeekLove" @click="toRouter('/GeekLove')">相爱相杀</el-menu-item>
         </div>
         <div class="right-part">
-          <el-button type="primary" size="small" @click="drawer = true">发动态</el-button>
-          <el-button type="primary" size="small" @click="triggerLogin()" plain>登 录</el-button>
+          <div class="user-status">
+            <span v-if="currentUser">{{currentUser}}</span>
+            <el-button v-if="currentUser" type="primary" size="small" @click="drawer = true">发动态</el-button>
+            <el-button v-if="currentUser" type="primary" size="small" @click="logout()">登 出</el-button>
+            <el-button v-if="!currentUser" type="primary" size="small" @click="triggerLogin()" plain>登 录</el-button>
+          </div>
         </div>
       </div>
       <el-drawer title="发动态测试" :visible.sync="drawer" direction="rtl">
@@ -82,6 +86,15 @@ export default {
     },
     triggerLogin() {
       this.$store.dispatch("showLogin", true);
+    },
+    logout() {
+      AV.User.logOut();
+      this.$router.go(0);
+    }
+  },
+  computed: {
+    currentUser () {
+     return AV.User.current() ? AV.User.current()['attributes']['username'] : null;
     }
   }
 };
