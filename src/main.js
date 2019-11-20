@@ -10,7 +10,12 @@ import router from './router';
 // import http from './http';
 // Vue.prototype.$http = http;
 Vue.config.productionTip = false
-
+const APP_ID = '';
+const APP_KEY = '';
+AV.init({
+  appId: APP_ID,
+  appKey: APP_KEY
+})
 
 Vue.mixin({
   methods: {
