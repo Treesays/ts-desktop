@@ -10,8 +10,8 @@ import router from './router';
 // import http from './http';
 // Vue.prototype.$http = http;
 Vue.config.productionTip = false
-const APP_ID = '';
-const APP_KEY = '';
+const APP_ID = 'E0zOYOk1h0wBAkNHwFeaS63z-gzGzoHsz';
+const APP_KEY = 'fdFmkUavVqNrbP2PC6NRsRUj';
 AV.init({
   appId: APP_ID,
   appKey: APP_KEY
