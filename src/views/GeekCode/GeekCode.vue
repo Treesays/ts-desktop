@@ -1,111 +1,113 @@
 <template>
-  <div class="hc-container">
-    <div class="hc-posts">
-      <el-tabs v-model="activeName" @tab-click="handleClick">
-        <el-tab-pane label="热门" name="all">
-          <div v-for="post in hotPosts" :key="post.id" class="hc-post-layout">
-            <div class="hc-post-item">
-              <div class="user-info">
-                <div class="user-avatar">
-                  <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
-                </div>
-                <div class="author-info">
-                  <h3>{{post.authorInfo.name}}</h3>
-                  <span>{{post.authorInfo.position}} @</span>
-                  <span>{{post.authorInfo.company}}</span>
-                </div>
-              </div>
-              <div class="post-content">
-                <span>{{post.content}}</span>
-              </div>
-              <div class="post-tags">
-                <el-tag v-for="category in post.categories" :key="category.id" size="small" effect="plain">{{ category.name }}</el-tag>
-              </div>
-              <div class="post-stats">
-                <span>赞</span>
-                <el-divider class="post-stats-divider" direction="vertical"></el-divider>
-                <span @click="loadComments()">评论</span>
-                <el-divider class="post-stats-divider" direction="vertical"></el-divider>
-                <span>分享</span>
-              </div>
-            </div>
-          </div>
-        </el-tab-pane>
-        <el-tab-pane label="最新" name="inAuth">
-          <div v-for="post in newPosts" :key="post.id" class="hc-post-layout">
-            <div class="hc-post-item">
-              <div class="user-info">
-                <div class="user-avatar">
-                  <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
-                </div>
-                <div class="author-info">
-                  <h3>{{post.authorInfo.name}}</h3>
-                  <span>{{post.authorInfo.position}} @</span>
-                  <span>{{post.authorInfo.company}}</span>
-                </div>
-              </div>
-              <div class="post-content">
-                <span>{{post.content}}</span>
-              </div>
-              <div class="post-tags">
-                <el-tag v-for="category in post.categories" :key="category.id" size="small" effect="plain">{{ category.name }}</el-tag>
-              </div>
-              <div class="post-stats">
-                <span>赞</span>
-                <el-divider class="post-stats-divider" direction="vertical"></el-divider>
-                <span @click="loadComments()">评论</span>
-                <el-divider class="post-stats-divider" direction="vertical"></el-divider>
-                <span>分享</span>
-              </div>
-            </div>
-          </div>
-        </el-tab-pane>
-      </el-tabs>
-    </div>
+    <div class="hc-container">
+        <div class="hc-posts">
+            <el-tabs v-model="activeName" @tab-click="handleClick">
+                <el-tab-pane label="热门" name="all">
+                    <div v-for="post in hotPosts" :key="post.id" class="hc-post-layout">
+                        <div class="hc-post-item">
+                            <div class="user-info">
+                                <div class="user-avatar">
+                                    <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
+                                </div>
+                                <div class="author-info">
+                                    <h3>{{post.authorInfo.name}}</h3>
+                                    <span>{{post.authorInfo.position}} @</span>
+                                    <span>{{post.authorInfo.company}}</span>
+                                </div>
+                            </div>
+                            <div class="post-content">
+                                <span>{{post.content}}</span>
+                            </div>
+                            <div class="post-tags">
+                                <el-tag v-for="category in post.categories" :key="category.id" size="small" effect="plain">{{ category.name }}</el-tag>
+                            </div>
+                            <div class="post-stats">
+                                <span>赞</span>
+                                <el-divider class="post-stats-divider" direction="vertical"></el-divider>
+                                <span @click="loadComments()">评论</span>
+                                <el-divider class="post-stats-divider" direction="vertical"></el-divider>
+                                <span>分享</span>
+                            </div>
+                        </div>
+                    </div>
+                </el-tab-pane>
+                <el-tab-pane label="最新" name="inAuth">
+                    <div v-for="post in newPosts" :key="post.id" class="hc-post-layout">
+                        <div class="hc-post-item">
+                            <div class="user-info">
+                                <div class="user-avatar">
+                                    <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
+                                </div>
+                                <div class="author-info">
+                                    <h3>{{post.authorInfo.name}}</h3>
+                                    <span>{{post.authorInfo.position}} @</span>
+                                    <span>{{post.authorInfo.company}}</span>
+                                </div>
+                            </div>
+                            <div class="post-content">
+                                <span>{{post.content}}</span>
+                            </div>
+                            <div class="post-tags">
+                                <el-tag v-for="category in post.categories" :key="category.id" size="small" effect="plain">{{ category.name }}</el-tag>
+                            </div>
+                            <div class="post-stats">
+                                <span>赞</span>
+                                <el-divider class="post-stats-divider" direction="vertical"></el-divider>
+                                <span @click="loadComments()">评论</span>
+                                <el-divider class="post-stats-divider" direction="vertical"></el-divider>
+                                <span>分享</span>
+                            </div>
+                        </div>
+                    </div>
+                </el-tab-pane>
+            </el-tabs>
+        </div>
 
-    <div class="hc-form">
-      <el-card class="box-card" shadow="never">
-        <div class="topic-wallpaper">
-          <span class="wallpaper"></span>
+        <div class="hc-form">
+            <el-card class="box-card" shadow="never">
+                <div class="topic-wallpaper">
+                    <span class="wallpaper"></span>
+                </div>
+                <div class="topic-intro">
+                    <el-avatar class="topic-avatar" shape="square" :size="50">
+                    </el-avatar>
+                    <div class="topic-intro-main">
+                        <span class="topic-title">{{ topicInfo.name }}</span>
+                        <el-button type="success" size="small" plain @click="followUnfollow()">关 注</el-button>
+                    </div>
+                    <div class="topic-description">
+                        <div style="font-weight: bold;">话题介绍:</div>
+                        <span>
+                            show出代码，show出自己，不计语言，不计行数。
+                        </span>
+                    </div>
+                </div>
+                <div class="topic-stats">
+                    <span>
+                        <div class="count">{{ postsCount }}</div>
+                        <div class="item">沸点</div>
+                    </span>
+                    <el-divider class="post-stats-divider" direction="vertical"></el-divider>
+                    <span>
+                        <div class="count">{{ followersCount }}</div>
+                        <div class="item">关注</div>
+                    </span>
+                </div>
+            </el-card>
         </div>
-        <div class="topic-intro">
-          <el-avatar class="topic-avatar" shape="square" :size="50">
-          </el-avatar>
-          <div class="topic-intro-main">
-            <span class="topic-title">{{ topicInfo.name }}</span>
-            <el-button type="success" size="small" plain>关 注</el-button>
-          </div>
-          <div class="topic-description">
-            <div style="font-weight: bold;">话题介绍:</div>
-            <span>
-              show出代码，show出自己，不计语言，不计行数。
-            </span>
-          </div>
-        </div>
-        <div class="topic-stats">
-          <span>
-            <div class="count">1380</div>
-            <div class="item">沸点</div>
-          </span>
-          <el-divider class="post-stats-divider" direction="vertical"></el-divider>
-          <span>
-            <div class="count">1200</div>
-            <div class="item">关注</div>
-          </span>
-        </div>
-      </el-card>
     </div>
-  </div>
 </template>
 
 <script>
 import "@/resources/overwrite.css";
 import "@/views/styles/views-main.css";
-
+import { fetchCategoryStats, followUnfollow } from "@/services/categoryManipulate.js";
 export default {
     name: "Treesays",
     data() {
         return {
+            followersCount: 0,
+            postsCount: 0,
             activeName: "all",
             labelPosition1: "top",
             labelPosition2: "left",
@@ -354,7 +356,21 @@ export default {
         loadComments() {
             // 先检查是否登录。
             this.$store.dispatch("showLogin", true);
+        },
+        async followUnfollow() {
+            const response = await followUnfollow('GeekCode', '12345');
+            console.log(response);
+        },
+        async categoryStatsInit() {
+            const {
+                attributes: { followers, posts }
+            } = await fetchCategoryStats("GeekCode");
+            this.followersCount = followers.length;
+            this.postsCount = posts.length;
         }
+    },
+    mounted() {
+        this.categoryStatsInit();
     }
 };
 </script>

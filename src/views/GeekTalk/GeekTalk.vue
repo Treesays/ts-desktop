@@ -84,12 +84,12 @@
                 </div>
                 <div class="topic-stats">
                     <span>
-                        <div class="count">1000</div>
+                        <div class="count">{{ postsCount }}</div>
                         <div class="item">沸点</div>
                     </span>
                     <el-divider class="post-stats-divider" direction="vertical"></el-divider>
                     <span>
-                        <div class="count">1200</div>
+                        <div class="count">{{ followersCount }}</div>
                         <div class="item">关注</div>
                     </span>
                 </div>
@@ -101,10 +101,13 @@
 <script>
 import "@/resources/overwrite.css";
 import "@/views/styles/views-main.css";
+import { fetchCategoryStats } from "@/services/categoryManipulate.js";
 export default {
     name: "Treesays",
     data() {
         return {
+            followersCount: 0,
+            postsCount: 0,
             activeName: "all",
             labelPosition1: "top",
             labelPosition2: "left",
@@ -355,7 +358,17 @@ export default {
         loadComments() {
             // 先检查是否登录。
             this.$store.dispatch("showLogin", true);
+        },
+        async categoryStatsInit() {
+            const {
+                attributes: { followers, posts }
+            } = await fetchCategoryStats("GeekCode");
+            this.followersCount = followers.length;
+            this.postsCount = posts.length;
         }
+    },
+    mounted() {
+        this.categoryStatsInit();
     }
 };
 </script>

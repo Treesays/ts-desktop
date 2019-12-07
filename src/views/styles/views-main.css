@@ -189,6 +189,7 @@
 
 .topic-stats .count {
   font-weight: bold;
+  text-align: center;
 }
 
 .avatar {
