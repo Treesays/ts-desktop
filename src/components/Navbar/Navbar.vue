@@ -51,6 +51,7 @@
 <script>
 import "./overwrite.css";
 import LoginRegModal from "@/components/LoginRegModal/LoginRegModal";
+import { buildMessage } from "@/utils/messageBuilder.js";
 export default {
     name: "Navbar",
     components: { LoginRegModal },
@@ -87,7 +88,6 @@ export default {
     },
     methods: {
         _onSubmit() {
-          console.log('mock creation data ', this.mockCreation);
           const Posts = AV.Object.extend('Posts');
           // 构建对象
           const post = new Posts();
@@ -97,11 +97,15 @@ export default {
           post.set('position', this.mockCreation.position);
           post.set('category', this.mockCreation.category);
           post.set('content', this.mockCreation.content);
+          post.set('avatar', 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png');
+          post.set('tags', ['内部测试']);
+          post.set('shareCount', 0);
+          post.set('upCount', 0);
 
           // 将对象保存到云端
           post.save().then(function (postContent) {
             // 成功保存之后，执行其他逻辑
-            console.log('保存成功。objectId：' + postContent.id);
+            buildMessage('success', `保存成功。objectId ${postContent.id}`);
           }, function (error) {
             // 异常处理
           });

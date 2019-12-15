@@ -3,30 +3,23 @@
     <div class="hc-posts">
       <el-tabs v-model="activeName" @tab-click="handleClick">
         <el-tab-pane label="热门" name="all">
-          <div v-for="post in hotPosts" :key="post.id" class="hc-post-layout">
+          <div v-for="(post, index) in hotPosts" :key="index" class="hc-post-layout">
             <div class="hc-post-item">
               <div class="user-info">
                 <div class="user-avatar">
-                  <el-avatar
-                    src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
-                  ></el-avatar>
+                  <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
                 </div>
                 <div class="author-info">
-                  <h3>{{post.authorInfo.name}}</h3>
-                  <span>{{post.authorInfo.position}} @</span>
-                  <span>{{post.authorInfo.company}}</span>
+                  <h3>{{post.username}}</h3>
+                  <span>{{post.position}} @</span>
+                  <span>{{post.workplace}}</span>
                 </div>
               </div>
               <div class="post-content">
                 <span>{{post.content}}</span>
               </div>
               <div class="post-tags">
-                <el-tag
-                  v-for="category in post.categories"
-                  :key="category.id"
-                  size="small"
-                  effect="plain"
-                >{{ category.name }}</el-tag>
+                <el-tag v-for="(tag, index) in post.tags" :key="index" size="small" effect="plain" class="post-tag">{{ tag }}</el-tag>
               </div>
               <div class="post-stats">
                 <span>赞</span>
@@ -39,30 +32,23 @@
           </div>
         </el-tab-pane>
         <el-tab-pane label="最新" name="inAuth">
-          <div v-for="post in newPosts" :key="post.id" class="hc-post-layout">
+          <div v-for="(post, index) in newPosts" :key="index" class="hc-post-layout">
             <div class="hc-post-item">
               <div class="user-info">
                 <div class="user-avatar">
-                  <el-avatar
-                    src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
-                  ></el-avatar>
+                  <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
                 </div>
                 <div class="author-info">
-                  <h3>{{post.authorInfo.name}}</h3>
-                  <span>{{post.authorInfo.position}} @</span>
-                  <span>{{post.authorInfo.company}}</span>
+                  <h3>{{post.username}}</h3>
+                  <span>{{post.position}} @</span>
+                  <span>{{post.workplace}}</span>
                 </div>
               </div>
               <div class="post-content">
                 <span>{{post.content}}</span>
               </div>
               <div class="post-tags">
-                <el-tag
-                  v-for="category in post.categories"
-                  :key="category.id"
-                  size="small"
-                  effect="plain"
-                >{{ category.name }}</el-tag>
+                <el-tag v-for="(tag, index) in post.tags" :key="index" size="small" effect="plain" class="post-tag">{{ tag }}</el-tag>
               </div>
               <div class="post-stats">
                 <span>赞</span>
@@ -86,11 +72,7 @@
           <el-avatar class="topic-avatar" shape="square" :size="50"></el-avatar>
           <div class="topic-intro-main">
             <span class="topic-title">{{ topicInfo.name }}</span>
-            <el-button
-              type="success"
-              size="small"
-              @click="followUnfollow()"
-            >{{ isUserFollowedThisCategory ? '已关注' : '关 注'}}</el-button>
+            <el-button type="success" size="small" @click="followUnfollow()">{{ isUserFollowedThisCategory ? '已关注' : '关 注'}}</el-button>
           </div>
           <div class="topic-description">
             <div style="font-weight: bold;">话题介绍:</div>
@@ -117,312 +99,125 @@
 import "@/resources/overwrite.css";
 import "@/views/styles/views-main.css";
 import {
-  fetchCategoryStats,
-  followUnfollow,
-  isUserFollowedCategory
+    fetchCategoryStats,
+    fetchPostsByCategory,
+    followUnfollow,
+    isUserFollowedCategory
 } from "@/services/categoryManipulate.js";
 export default {
-  name: "Treesays",
-  data() {
-    return {
-      followersCount: 0,
-      postsCount: 0,
-      isUserFollowedThisCategory: false,
-      activeName: "all",
-      labelPosition1: "top",
-      labelPosition2: "left",
-      topicInfo: {
-        name: "树洞一下"
-      },
-      posts: [
-        {
-          id: 1,
-          content:
-            "缩略图到大图无缝切换，可以显示大长图、gif图片。功能完善、性能良好、扩展方便、使用简单。",
-          imgAttachment: [],
-          categories: [{ id: 1, name: "代码写诗" }],
-          upCount: 0,
-          shareCount: 0,
-          comments: {
-            count: 10,
-            details: [
-              {
-                id: 1,
-                username: "校长不读书",
-                userAvatar:
-                  "https://avatars2.githubusercontent.com/u/13238103?s=460&v=4",
-                content: "自己顶",
-                replies: [
-                  {
-                    id: 3,
-                    username: "皓哥",
-                    userAvatar:
-                      "https://avatars2.githubusercontent.com/u/13238103?s=460&v=4",
-                    content: "帮校长顶"
-                  }
-                ]
-              }
-            ]
-          },
-          authorInfo: {
-            name: "校长",
-            position: "前端开发工程师",
-            company: "阿里蚂蚁金服体验部",
-            avatar:
-              "https://avatars2.githubusercontent.com/u/13238103?s=460&v=4"
-          },
-          status: "hot"
+    name: "Treesays",
+    data() {
+        return {
+            posts: null,
+            followersCount: 0,
+            postsCount: 0,
+            isUserFollowedThisCategory: false,
+            activeName: "all",
+            labelPosition1: "top",
+            labelPosition2: "left",
+            topicInfo: {
+                name: "树洞一下"
+            },
+            squareUrl:
+                "https://mirror-gold-cdn.xitu.io/168e08de7600547699f?imageView2/1/w/100/h/100/q/85/format/webp/interlace/1"
+        };
+    },
+    computed: {
+        hotPosts() {
+            return this.posts
+                ? this.posts.filter(post => post.tags.length === 1)
+                : []; //后续更改
         },
-        {
-          id: 2,
-          content:
-            "缩略图到大图无缝切换，可以显示大长图、gif图片。功能完善、性能良好、扩展方便、使用简单。",
-          imgAttachment: [],
-          categories: [{ id: 1, name: "代码写诗" }],
-          upCount: 0,
-          shareCount: 0,
-          comments: {
-            count: 10,
-            details: [
-              {
-                id: 1,
-                username: "校长不读书",
-                userAvatar:
-                  "https://avatars2.githubusercontent.com/u/13238103?s=460&v=4",
-                content: "自己顶",
-                replies: [
-                  {
-                    id: 3,
-                    username: "皓哥",
-                    userAvatar:
-                      "https://avatars2.githubusercontent.com/u/13238103?s=460&v=4",
-                    content: "帮校长顶"
-                  }
-                ]
-              }
-            ]
-          },
-          authorInfo: {
-            name: "校长",
-            position: "前端开发工程师",
-            company: "阿里蚂蚁金服体验部",
-            avatar:
-              "https://avatars2.githubusercontent.com/u/13238103?s=460&v=4"
-          },
-          status: "hot"
+        newPosts() {
+            return this.posts
+                ? this.posts.filter(post => post.tags.length !== 1)
+                : []; //后续更改
         },
-        {
-          id: 3,
-          content:
-            "缩略图到大图无缝切换，可以显示大长图、gif图片。功能完善、性能良好、扩展方便、使用简单。",
-          imgAttachment: [],
-          categories: [{ id: 1, name: "代码写诗" }],
-          upCount: 0,
-          shareCount: 0,
-          comments: {
-            count: 10,
-            details: [
-              {
-                id: 1,
-                username: "校长不读书",
-                userAvatar:
-                  "https://avatars2.githubusercontent.com/u/13238103?s=460&v=4",
-                content: "自己顶",
-                replies: [
-                  {
-                    id: 3,
-                    username: "皓哥",
-                    userAvatar:
-                      "https://avatars2.githubusercontent.com/u/13238103?s=460&v=4",
-                    content: "帮校长顶"
-                  }
-                ]
-              }
-            ]
-          },
-          authorInfo: {
-            name: "校长",
-            position: "前端开发工程师",
-            company: "阿里蚂蚁金服体验部",
-            avatar:
-              "https://avatars2.githubusercontent.com/u/13238103?s=460&v=4"
-          },
-          status: "hot"
-        },
-        {
-          id: 4,
-          content:
-            "缩略图到大图无缝切换，可以显示大长图、gif图片。功能完善、性能良好、扩展方便、使用简单。",
-          imgAttachment: [],
-          categories: [{ id: 1, name: "代码写诗" }],
-          upCount: 0,
-          shareCount: 0,
-          comments: {
-            count: 10,
-            details: [
-              {
-                id: 1,
-                username: "校长不读书",
-                userAvatar:
-                  "https://avatars2.githubusercontent.com/u/13238103?s=460&v=4",
-                content: "自己顶",
-                replies: [
-                  {
-                    id: 3,
-                    username: "皓哥",
-                    userAvatar:
-                      "https://avatars2.githubusercontent.com/u/13238103?s=460&v=4",
-                    content: "帮校长顶"
-                  }
-                ]
-              }
-            ]
-          },
-          authorInfo: {
-            name: "校长",
-            position: "前端开发工程师",
-            company: "阿里蚂蚁金服体验部",
-            avatar:
-              "https://avatars2.githubusercontent.com/u/13238103?s=460&v=4"
-          },
-          status: "new"
-        },
-        {
-          id: 5,
-          content:
-            "缩略图到大图无缝切换，可以显示大长图、gif图片。功能完善、性能良好、扩展方便、使用简单。",
-          imgAttachment: [],
-          categories: [{ id: 1, name: "代码写诗" }],
-          upCount: 0,
-          shareCount: 0,
-          comments: {
-            count: 10,
-            details: [
-              {
-                id: 1,
-                username: "校长不读书",
-                userAvatar:
-                  "https://avatars2.githubusercontent.com/u/13238103?s=460&v=4",
-                content: "自己顶",
-                replies: [
-                  {
-                    id: 3,
-                    username: "皓哥",
-                    userAvatar:
-                      "https://avatars2.githubusercontent.com/u/13238103?s=460&v=4",
-                    content: "帮校长顶"
-                  }
-                ]
-              }
-            ]
-          },
-          authorInfo: {
-            name: "校长",
-            position: "前端开发工程师",
-            company: "阿里蚂蚁金服体验部",
-            avatar:
-              "https://avatars2.githubusercontent.com/u/13238103?s=460&v=4"
-          },
-          status: "new"
+        currentUserId() {
+            return AV.User.current() ? AV.User.current()["id"] : null;
         }
-      ],
-      squareUrl:
-        "https://mirror-gold-cdn.xitu.io/168e08de7600547699f?imageView2/1/w/100/h/100/q/85/format/webp/interlace/1",
-      author: {
-        name: "树洞一下",
-        remark: "话题简介这里是阿萨德不看的",
-        hot: "1485",
-        notice: "1822",
-        readers: "3891"
-      },
-      reader: [
-        {
-          id: 0,
-          name: "校长",
-          url:
-            "https://leancloud-gold-cdn.xitu.io/pui5ANRQcNkH6EAaPTAIPuA?imageView2/1/w/100/h/100/q/85/format/webp/interlace/1"
+    },
+    methods: {
+        handleClick(tab, event) {
+            console.log(tab, event);
         },
-        {
-          id: 1,
-          name: "皓",
-          url:
-            "https://leancloud-gold-cdn.xitu.io/pui5ANRQcNkH6EAaPTAIPuA?imageView2/1/w/100/h/100/q/85/format/webp/interlace/1"
+        loadComments() {
+            // 先检查是否登录。
+            if (!this.currentUserId) {
+                this.$store.dispatch("showLogin", true);
+            }
         },
-        {
-          id: 2,
-          name: "周周",
-          url:
-            "https://leancloud-gold-cdn.xitu.io/pui5ANRQcNkH6EAaPTAIPuA?imageView2/1/w/100/h/100/q/85/format/webp/interlace/1"
+        async followUnfollow() {
+            if (!this.currentUserId) {
+                this.$store.dispatch("showLogin", true);
+            } else {
+                const response = await followUnfollow(
+                    "GeekTalk",
+                    this.currentUserId
+                );
+                this.isUserFollowedThisCategory = response["index"] === -1;
+            }
         },
-        {
-          id: 3,
-          name: "无名人士灭绝师太",
-          url:
-            "https://leancloud-gold-cdn.xitu.io/pui5ANRQcNkH6EAaPTAIPuA?imageView2/1/w/100/h/100/q/85/format/webp/interlace/1"
+        async categoryStatsInit() {
+            const {
+                attributes: { followers, posts }
+            } = await fetchCategoryStats("GeekTalk");
+            this.followersCount = followers.length;
+            this.postsCount = posts.length;
+            const _posts = await fetchPostsByCategory("GeekTalk");
+            if (_posts) {
+                this.posts = _posts.map(post => {
+                    const {
+                        _serverData: {
+                            category,
+                            content,
+                            username,
+                            position,
+                            workplace,
+                            avatar,
+                            tags,
+                            upCount,
+                            shareCount
+                        }
+                    } = post;
+                    return {
+                        category,
+                        content,
+                        username,
+                        position,
+                        workplace,
+                        avatar,
+                        tags,
+                        upCount,
+                        shareCount
+                    };
+                });
+            }
         }
-      ]
-    };
-  },
-  computed: {
-    hotPosts() {
-      return this.posts.filter(post => post.status === "hot");
     },
-    newPosts() {
-      return this.posts.filter(post => post.status === "new");
-    },
-    currentUserId() {
-      return AV.User.current() ? AV.User.current()["id"] : null;
+    async mounted() {
+        this.categoryStatsInit();
+        if (this.currentUserId) {
+            this.isUserFollowedThisCategory = await isUserFollowedCategory(
+                "GeekTalk",
+                this.currentUserId
+            );
+        }
     }
-  },
-  methods: {
-    handleClick(tab, event) {
-      console.log(tab, event);
-    },
-    loadComments() {
-      // 先检查是否登录。
-      if (!this.currentUserId) {
-        this.$store.dispatch("showLogin", true);
-      }
-    },
-    async followUnfollow() {
-      if (!this.currentUserId) {
-        this.$store.dispatch("showLogin", true);
-      } else {
-        const response = await followUnfollow("GeekTalk", this.currentUserId);
-        this.isUserFollowedThisCategory = response["index"] === -1;
-      }
-    },
-    async categoryStatsInit() {
-      const {
-        attributes: { followers, posts }
-      } = await fetchCategoryStats("GeekTalk");
-      this.followersCount = followers.length;
-      this.postsCount = posts.length;
-    }
-  },
-  async mounted() {
-    this.categoryStatsInit();
-    if (this.currentUserId) {
-      this.isUserFollowedThisCategory = await isUserFollowedCategory(
-        "GeekTalk",
-        this.currentUserId
-      );
-    }
-  }
 };
 </script>
 
 <!-- Add 'scoped' attribute to limit CSS to this component only -->
 <style scoped>
 .topic-wallpaper .wallpaper {
-  background-image: url("~@/assets/treesays_talk.png");
-  background-repeat: no-repeat;
-  background-position: 50%;
-  background-size: 120%;
+    background-image: url("~@/assets/treesays_talk.png");
+    background-repeat: no-repeat;
+    background-position: 50%;
+    background-size: 120%;
 }
 .topic-intro .topic-avatar {
-  background-image: url("~@/assets/treesays_talk.png");
-  background-size: cover;
-  background-position-x: 50%;
+    background-image: url("~@/assets/treesays_talk.png");
+    background-size: cover;
+    background-position-x: 50%;
 }
 </style>
