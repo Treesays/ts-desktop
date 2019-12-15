@@ -69,7 +69,9 @@
 .post-tags {
   margin: 5px 3.3rem 0.85rem 5rem;
 }
-
+.post-tag {
+  margin-right: 6px;
+}
 .post-stats {
   display: flex;
   border-top: 1px solid #ebebeb;
