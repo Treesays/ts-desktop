@@ -24,7 +24,15 @@
               <div class="post-stats">
                 <span>赞</span>
                 <el-divider class="post-stats-divider" direction="vertical"></el-divider>
-                <span @click="loadComments()">评论</span>
+                <el-popover
+                  @after-enter="loadComments(post.id)"
+                  placement="bottom" title="回复"
+                  trigger="click" width="500">
+                  <div class="post-comment-box">
+                    <div class="comments"></div>
+                  </div>
+                  <span slot="reference">评论</span>
+                </el-popover>
                 <el-divider class="post-stats-divider" direction="vertical"></el-divider>
                 <span>分享</span>
               </div>
@@ -53,7 +61,15 @@
               <div class="post-stats">
                 <span>赞</span>
                 <el-divider class="post-stats-divider" direction="vertical"></el-divider>
-                <span @click="loadComments()">评论</span>
+                <el-popover
+                  @after-enter="loadComments(post.id)"
+                  placement="bottom" title="回复"
+                  trigger="click" width="500">
+                  <div class="post-comment-box">
+                    <div class="comments"></div>
+                  </div>
+                  <span slot="reference">评论</span>
+                </el-popover>
                 <el-divider class="post-stats-divider" direction="vertical"></el-divider>
                 <span>分享</span>
               </div>
@@ -104,6 +120,7 @@ import {
     followUnfollow,
     isUserFollowedCategory
 } from "@/services/categoryManipulate.js";
+import Valine from 'valine';
 export default {
     name: "Treesays",
     data() {
@@ -141,10 +158,22 @@ export default {
         handleClick(tab, event) {
             console.log(tab, event);
         },
-        loadComments() {
+        loadComments(id) {
             // 先检查是否登录。
             if (!this.currentUserId) {
                 this.$store.dispatch("showLogin", true);
+            } else {
+              new Valine({
+                el: '.comments',
+                appId: 'E0zOYOk1h0wBAkNHwFeaS63z',
+                appKey: 'fdFmkUavVqNrbP2PC6NRsRUj',
+                notify:false,
+                verify:false,
+                avatar:'mp',
+                placeholder: '欢迎留言',
+                meta: ['nick'],
+                path: id
+              })
             }
         },
         async followUnfollow() {
@@ -198,7 +227,7 @@ export default {
         }
     },
     async mounted() {
-        this.categoryStatsInit();
+      this.categoryStatsInit();
         if (this.currentUserId) {
             this.isUserFollowedThisCategory = await isUserFollowedCategory(
                 "GeekTalk",
@@ -221,5 +250,9 @@ export default {
     background-image: url("~@/assets/treesays_talk.png");
     background-size: cover;
     background-position-x: 50%;
+}
+.post-comment {
+  height: 500px;
+  border: 1px solid #000000;
 }
 </style>
