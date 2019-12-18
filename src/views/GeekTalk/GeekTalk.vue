@@ -178,7 +178,8 @@ export default {
                             tags,
                             upCount,
                             shareCount
-                        }
+                        },
+                        id
                     } = post;
                     return {
                         category,
@@ -189,7 +190,8 @@ export default {
                         avatar,
                         tags,
                         upCount,
-                        shareCount
+                        shareCount,
+                        id
                     };
                 });
             }
