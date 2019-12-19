@@ -24,11 +24,17 @@
               <div class="post-stats">
                 <span>赞</span>
                 <el-divider class="post-stats-divider" direction="vertical"></el-divider>
-                <span @click="loadComments()">评论</span>
+                <span @click="loadComments(post, index)">评论</span>
                 <el-divider class="post-stats-divider" direction="vertical"></el-divider>
                 <span>分享</span>
               </div>
             </div>
+            <transition
+              name="comment-animation">
+              <div class="post-comment-box" v-show="post.show === true">
+                <div :id="`comments${index}`"></div>
+              </div>
+            </transition>
           </div>
         </el-tab-pane>
         <el-tab-pane label="最新" name="inAuth">
@@ -53,7 +59,15 @@
               <div class="post-stats">
                 <span>赞</span>
                 <el-divider class="post-stats-divider" direction="vertical"></el-divider>
-                <span @click="loadComments()">评论</span>
+                <el-popover
+                  @after-enter="loadComments(post.id)"
+                  placement="bottom" title="回复"
+                  trigger="click" width="500">
+                  <div class="post-comment-box">
+                    <div class="comments"></div>
+                  </div>
+                  <span slot="reference">评论</span>
+                </el-popover>
                 <el-divider class="post-stats-divider" direction="vertical"></el-divider>
                 <span>分享</span>
               </div>
@@ -104,6 +118,7 @@ import {
     followUnfollow,
     isUserFollowedCategory
 } from "@/services/categoryManipulate.js";
+import Valine from 'valine';
 export default {
     name: "Treesays",
     data() {
@@ -141,10 +156,23 @@ export default {
         handleClick(tab, event) {
             console.log(tab, event);
         },
-        loadComments() {
+        loadComments(post, index) {
             // 先检查是否登录。
             if (!this.currentUserId) {
                 this.$store.dispatch("showLogin", true);
+            } else {
+              this.hotPosts[index]['show'] = this.hotPosts[index]['show'] !== true;
+              new Valine({
+                el: `#comments${index}`,
+                appId: 'E0zOYOk1h0wBAkNHwFeaS63z',
+                appKey: 'fdFmkUavVqNrbP2PC6NRsRUj',
+                notify:false,
+                verify:false,
+                avatar:'mp',
+                placeholder: '欢迎留言',
+                meta: ['nick'],
+                path: post.id
+              })
             }
         },
         async followUnfollow() {
@@ -181,6 +209,8 @@ export default {
                         },
                         id
                     } = post;
+                    // 控制评论区域显示
+                    let show = false;
                     return {
                         category,
                         content,
@@ -191,14 +221,15 @@ export default {
                         tags,
                         upCount,
                         shareCount,
-                        id
+                        id,
+                        show
                     };
                 });
             }
         }
     },
     async mounted() {
-        this.categoryStatsInit();
+      this.categoryStatsInit();
         if (this.currentUserId) {
             this.isUserFollowedThisCategory = await isUserFollowedCategory(
                 "GeekTalk",
@@ -222,4 +253,5 @@ export default {
     background-size: cover;
     background-position-x: 50%;
 }
+
 </style>
