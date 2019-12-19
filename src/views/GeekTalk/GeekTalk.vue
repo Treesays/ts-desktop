@@ -171,6 +171,7 @@ export default {
                 avatar:'mp',
                 placeholder: '欢迎留言',
                 meta: ['nick'],
+                pageSize: 5,
                 path: post.id
               })
             }
