@@ -118,7 +118,7 @@ import {
     followUnfollow,
     isUserFollowedCategory
 } from "@/services/categoryManipulate.js";
-import Valine from 'valine';
+
 export default {
     name: "Treesays",
     data() {
@@ -157,12 +157,16 @@ export default {
             console.log(tab, event);
         },
         loadComments(post, index) {
+            // 获取valine对象
+            let valine = this.Valine;
             // 先检查是否登录。
             if (!this.currentUserId) {
                 this.$store.dispatch("showLogin", true);
             } else {
+              // 控制评论窗口显示
               this.hotPosts[index]['show'] = this.hotPosts[index]['show'] !== true;
-              new Valine({
+              // 启动valine
+              new valine({
                 el: `#comments${index}`,
                 appId: 'E0zOYOk1h0wBAkNHwFeaS63z',
                 appKey: 'fdFmkUavVqNrbP2PC6NRsRUj',
