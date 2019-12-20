@@ -98,13 +98,13 @@
 }
 
 .post-comment-box {
-  height: auto;
+  /* height: auto; */
   border-top: 1px solid #ebebeb;
-  border-radius: 5px;
-  position: relative;
-  padding: 20px;
+  /* border-radius: 5px;
+  position: relative; */
+  padding: 16px;
 }
-.post-comment-box:after {
+/* .post-comment-box:after {
   content:"\00a0";
   width: 0;
   height: 0;
@@ -116,7 +116,7 @@
   top: -18px;
   left: 50%;
   transform: translateX(-50%);
-}
+} */
 
 .author-wrap {
   text-align: center;

@@ -29,7 +29,7 @@ Vue.mixin({
 })
 
 // 挂载Valine为全局变量
-Vue.prototype.Valine = Valine
+Vue.prototype.$Valine = Valine
 
 // router.beforeEach((to, from, next) => {
 //   if (to.matched.some(res => res.meta.requireAuth)) {

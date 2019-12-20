@@ -157,28 +157,26 @@ export default {
             console.log(tab, event);
         },
         loadComments(post, index) {
-            // 获取valine对象
-            let valine = this.Valine;
-            // 先检查是否登录。
-            if (!this.currentUserId) {
-                this.$store.dispatch("showLogin", true);
-            } else {
-              // 控制评论窗口显示
-              this.hotPosts[index]['show'] = this.hotPosts[index]['show'] !== true;
-              // 启动valine
-              new valine({
-                el: `#comments${index}`,
-                appId: 'E0zOYOk1h0wBAkNHwFeaS63z',
-                appKey: 'fdFmkUavVqNrbP2PC6NRsRUj',
-                notify:false,
-                verify:false,
-                avatar:'mp',
-                placeholder: '欢迎留言',
-                meta: ['nick'],
-                pageSize: 5,
-                path: post.id
-              })
-            }
+          // 先检查是否登录。
+          if (!this.currentUserId) {
+              this.$store.dispatch("showLogin", true);
+          } else {
+            // 控制评论窗口显示
+            this.hotPosts[index]['show'] = this.hotPosts[index]['show'] !== true;
+            // 启动valine
+            new this.$Valine({
+              el: `#comments${index}`,
+              appId: 'E0zOYOk1h0wBAkNHwFeaS63z',
+              appKey: 'fdFmkUavVqNrbP2PC6NRsRUj',
+              notify:false,
+              verify:false,
+              avatar:'robohash',
+              placeholder: '欢迎留言',
+              meta: ['nick'],
+              pageSize: 5,
+              path: post.id
+            })
+          }
         },
         async followUnfollow() {
             if (!this.currentUserId) {
@@ -234,7 +232,7 @@ export default {
         }
     },
     async mounted() {
-      this.categoryStatsInit();
+     await this.categoryStatsInit();
         if (this.currentUserId) {
             this.isUserFollowedThisCategory = await isUserFollowedCategory(
                 "GeekTalk",
