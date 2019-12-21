@@ -3,7 +3,7 @@
     <div class="hc-posts">
       <el-tabs v-model="activeName" @tab-click="handleClick">
         <el-tab-pane label="热门" name="hotPosts">
-          <div v-for="(post, index) in hotPosts" :key="index" class="hc-post-layout">
+          <div v-for="post in hotPosts" :key="post.id" class="hc-post-layout">
             <div class="hc-post-item">
               <div class="user-info">
                 <div class="user-avatar">
@@ -24,20 +24,20 @@
               <div class="post-stats">
                 <span>赞</span>
                 <el-divider class="post-stats-divider" direction="vertical"></el-divider>
-                <span @click="loadComments(post, index, hotPosts)">评论</span>
+                <span @click="loadComments(post)">评论</span>
                 <el-divider class="post-stats-divider" direction="vertical"></el-divider>
                 <span>分享</span>
               </div>
             </div>
             <transition name="comment-animation">
               <div class="post-comment-box" v-show="post.show">
-                <div :id="`comments${index}`"></div>
+                <div :id="`comments${post.id}`"></div>
               </div>
             </transition>
           </div>
         </el-tab-pane>
         <el-tab-pane label="最新" name="newPosts">
-          <div v-for="(post, index) in newPosts" :key="index" class="hc-post-layout">
+          <div v-for="post in newPosts" :key="post.id" class="hc-post-layout">
             <div class="hc-post-item">
               <div class="user-info">
                 <div class="user-avatar">
@@ -58,14 +58,14 @@
               <div class="post-stats">
                 <span>赞</span>
                 <el-divider class="post-stats-divider" direction="vertical"></el-divider>
-                <span @click="loadComments(post, index, newPosts)">评论</span>
+                <span @click="loadComments(post)">评论</span>
                 <el-divider class="post-stats-divider" direction="vertical"></el-divider>
                 <span>分享</span>
               </div>
             </div>
             <transition name="comment-animation">
               <div class="post-comment-box" v-show="post.show">
-                <div :id="`comments${index}`"></div>
+                <div :id="`comments${post.id}`"></div>
               </div>
             </transition>
           </div>
@@ -152,16 +152,16 @@ export default {
         handleClick(tab, event) {
             console.log(tab, event);
         },
-        loadComments(post, index, postType) {
+        loadComments(post) {
             // 先检查是否登录。
             if (!this.currentUserId) {
                 this.$store.dispatch("showLogin", true);
             } else {
                 // 控制评论窗口显示
-                postType[index]["show"] = postType[index]["show"] !== true;
+                post["show"] = post["show"] !== true;
                 // 启动valine
                 new this.$Valine({
-                    el: `#comments${index}`,
+                    el: `#comments${post.id}`,
                     appId: "E0zOYOk1h0wBAkNHwFeaS63z",
                     appKey: "fdFmkUavVqNrbP2PC6NRsRUj",
                     notify: false,
