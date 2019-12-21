@@ -5,6 +5,7 @@ import Vue from 'vue';
 import App from './App';
 import store from './store'
 import './resources/elementUI';
+import Valine from 'valine';
 import { Message } from 'element-ui';
 import router from './router';
 // import http from './http';
@@ -26,6 +27,9 @@ Vue.mixin({
     }
   }
 })
+
+// 挂载Valine为全局变量
+Vue.prototype.$Valine = Valine
 
 // router.beforeEach((to, from, next) => {
 //   if (to.matched.some(res => res.meta.requireAuth)) {

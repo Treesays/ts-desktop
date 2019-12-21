@@ -2,7 +2,7 @@
   <div class="hc-container">
     <div class="hc-posts">
       <el-tabs v-model="activeName" @tab-click="handleClick">
-        <el-tab-pane label="热门" name="all">
+        <el-tab-pane label="热门" name="hotPosts">
           <div v-for="(post, index) in hotPosts" :key="index" class="hc-post-layout">
             <div class="hc-post-item">
               <div class="user-info">
@@ -24,14 +24,19 @@
               <div class="post-stats">
                 <span>赞</span>
                 <el-divider class="post-stats-divider" direction="vertical"></el-divider>
-                <span @click="loadComments()">评论</span>
+                <span @click="loadComments(post, index, hotPosts)">评论</span>
                 <el-divider class="post-stats-divider" direction="vertical"></el-divider>
                 <span>分享</span>
               </div>
             </div>
+            <transition name="comment-animation">
+              <div class="post-comment-box" v-show="post.show">
+                <div :id="`comments${index}`"></div>
+              </div>
+            </transition>
           </div>
         </el-tab-pane>
-        <el-tab-pane label="最新" name="inAuth">
+        <el-tab-pane label="最新" name="newPosts">
           <div v-for="(post, index) in newPosts" :key="index" class="hc-post-layout">
             <div class="hc-post-item">
               <div class="user-info">
@@ -53,11 +58,16 @@
               <div class="post-stats">
                 <span>赞</span>
                 <el-divider class="post-stats-divider" direction="vertical"></el-divider>
-                <span @click="loadComments()">评论</span>
+                <span @click="loadComments(post, index, newPosts)">评论</span>
                 <el-divider class="post-stats-divider" direction="vertical"></el-divider>
                 <span>分享</span>
               </div>
             </div>
+            <transition name="comment-animation">
+              <div class="post-comment-box" v-show="post.show">
+                <div :id="`comments${index}`"></div>
+              </div>
+            </transition>
           </div>
         </el-tab-pane>
       </el-tabs>
@@ -104,6 +114,7 @@ import {
     followUnfollow,
     isUserFollowedCategory
 } from "@/services/categoryManipulate.js";
+
 export default {
     name: "Treesays",
     data() {
@@ -112,7 +123,7 @@ export default {
             followersCount: 0,
             postsCount: 0,
             isUserFollowedThisCategory: false,
-            activeName: "all",
+            activeName: "hotPosts",
             labelPosition1: "top",
             labelPosition2: "left",
             topicInfo: {
@@ -141,10 +152,26 @@ export default {
         handleClick(tab, event) {
             console.log(tab, event);
         },
-        loadComments() {
+        loadComments(post, index, postType) {
             // 先检查是否登录。
             if (!this.currentUserId) {
                 this.$store.dispatch("showLogin", true);
+            } else {
+                // 控制评论窗口显示
+                postType[index]["show"] = postType[index]["show"] !== true;
+                // 启动valine
+                new this.$Valine({
+                    el: `#comments${index}`,
+                    appId: "E0zOYOk1h0wBAkNHwFeaS63z",
+                    appKey: "fdFmkUavVqNrbP2PC6NRsRUj",
+                    notify: false,
+                    verify: false,
+                    avatar: "robohash",
+                    placeholder: "欢迎留言",
+                    meta: ["nick"],
+                    pageSize: 5,
+                    path: post.id
+                });
             }
         },
         async followUnfollow() {
@@ -181,6 +208,8 @@ export default {
                         },
                         id
                     } = post;
+                    // 控制评论区域显示
+                    let show = false;
                     return {
                         category,
                         content,
@@ -191,14 +220,15 @@ export default {
                         tags,
                         upCount,
                         shareCount,
-                        id
+                        id,
+                        show
                     };
                 });
             }
         }
     },
     async mounted() {
-        this.categoryStatsInit();
+        await this.categoryStatsInit();
         if (this.currentUserId) {
             this.isUserFollowedThisCategory = await isUserFollowedCategory(
                 "GeekTalk",
