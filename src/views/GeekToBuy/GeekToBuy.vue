@@ -2,62 +2,14 @@
   <div class="hc-container">
     <div class="hc-posts">
       <el-tabs v-model="activeName" @tab-click="handleClick">
-        <el-tab-pane label="热门" name="all">
-          <div v-for="(post, index) in hotPosts" :key="index" class="hc-post-layout">
-            <div class="hc-post-item">
-              <div class="user-info">
-                <div class="user-avatar">
-                  <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
-                </div>
-                <div class="author-info">
-                  <h3>{{post.username}}</h3>
-                  <span>{{post.position}} @</span>
-                  <span>{{post.workplace}}</span>
-                </div>
-              </div>
-              <div class="post-content">
-                <span>{{post.content}}</span>
-              </div>
-              <div class="post-tags">
-                <el-tag v-for="(tag, index) in post.tags" :key="index" size="small" effect="plain" class="post-tag">{{ tag }}</el-tag>
-              </div>
-              <div class="post-stats">
-                <span>赞</span>
-                <el-divider class="post-stats-divider" direction="vertical"></el-divider>
-                <span @click="loadComments()">评论</span>
-                <el-divider class="post-stats-divider" direction="vertical"></el-divider>
-                <span>分享</span>
-              </div>
-            </div>
+        <el-tab-pane label="热门" name="hotPosts">
+          <div v-for="post in hotPosts" :key="post.id" class="hc-post-layout">
+            <Post :post="post" />
           </div>
         </el-tab-pane>
-        <el-tab-pane label="最新" name="inAuth">
-          <div v-for="(post, index) in newPosts" :key="index" class="hc-post-layout">
-            <div class="hc-post-item">
-              <div class="user-info">
-                <div class="user-avatar">
-                  <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
-                </div>
-                <div class="author-info">
-                  <h3>{{post.username}}</h3>
-                  <span>{{post.position}} @</span>
-                  <span>{{post.workplace}}</span>
-                </div>
-              </div>
-              <div class="post-content">
-                <span>{{post.content}}</span>
-              </div>
-              <div class="post-tags">
-                <el-tag v-for="(tag, index) in post.tags" :key="index" size="small" effect="plain" class="post-tag">{{ tag }}</el-tag>
-              </div>
-              <div class="post-stats">
-                <span>赞</span>
-                <el-divider class="post-stats-divider" direction="vertical"></el-divider>
-                <span @click="loadComments()">评论</span>
-                <el-divider class="post-stats-divider" direction="vertical"></el-divider>
-                <span>分享</span>
-              </div>
-            </div>
+        <el-tab-pane label="最新" name="newPosts">
+          <div v-for="post in newPosts" :key="post.id" class="hc-post-layout">
+            <Post :post="post" />
           </div>
         </el-tab-pane>
       </el-tabs>
@@ -96,6 +48,7 @@
 </template>
 
 <script>
+import Post from "@/components/Post/Post";
 import "@/resources/overwrite.css";
 import "@/views/styles/views-main.css";
 import {
@@ -106,13 +59,16 @@ import {
 } from "@/services/categoryManipulate.js";
 export default {
     name: "Treesays",
+    components: {
+        Post
+    },
     data() {
         return {
             posts: null,
             followersCount: 0,
             postsCount: 0,
             isUserFollowedThisCategory: false,
-            activeName: "all",
+            activeName: "hotPosts",
             labelPosition1: "top",
             labelPosition2: "left",
             topicInfo: {
@@ -132,20 +88,11 @@ export default {
             return this.posts
                 ? this.posts.filter(post => post.tags.length !== 1)
                 : []; //后续更改
-        },
-        currentUserId() {
-            return AV.User.current() ? AV.User.current()["id"] : null;
         }
     },
     methods: {
         handleClick(tab, event) {
             console.log(tab, event);
-        },
-        loadComments() {
-            // 先检查是否登录。
-            if (!this.currentUserId) {
-                this.$store.dispatch("showLogin", true);
-            }
         },
         async followUnfollow() {
             if (!this.currentUserId) {
@@ -181,6 +128,8 @@ export default {
                         },
                         id
                     } = post;
+                    // 控制评论区域显示
+                    let show = false;
                     return {
                         category,
                         content,
@@ -191,7 +140,8 @@ export default {
                         tags,
                         upCount,
                         shareCount,
-                        id
+                        id,
+                        show
                     };
                 });
             }
