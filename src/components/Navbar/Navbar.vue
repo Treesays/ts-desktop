@@ -21,7 +21,7 @@
           </div>
         </div>
       </div>
-      <el-drawer title="发动态测试" :visible.sync="drawer" direction="rtl">
+      <el-drawer title="发布动态" :visible.sync="drawer" direction="rtl">
         <el-form :label-position="labelPosition" label-width="80px" style="margin: 16px;" :model="mockCreation">
           <el-form-item label="工作单位">
             <el-input v-model="mockCreation.workplace"></el-input>
@@ -40,7 +40,7 @@
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="_onSubmit">立即创建</el-button>
-            <el-button>取消</el-button>
+            <el-button @click="_onCancel">取消</el-button>
           </el-form-item>
         </el-form>
       </el-drawer>
@@ -106,9 +106,13 @@ export default {
           post.save().then(function (postContent) {
             // 成功保存之后，执行其他逻辑
             buildMessage('success', `保存成功。objectId ${postContent.id}`);
+            this.drawer = false
           }, function (error) {
             // 异常处理
           });
+        },
+        _onCancel() {
+          this.drawer = false
         },
         handleSelect(key, keyPath) {
             console.log(key, keyPath);
