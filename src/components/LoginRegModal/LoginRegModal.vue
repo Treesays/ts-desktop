@@ -13,8 +13,8 @@
       <el-form class="modal-form">
         <!-- login -->
         <div v-if="isLoginActive">
-          <el-input size="small" placeholder="请输入邮箱" v-model="email" />
-          <el-input size="small" placeholder="请输入密码" v-model="password" show-password />
+          <el-input size="small" placeholder="请输入邮箱" v-model="email" @keyup.enter.native="login"/>
+          <el-input size="small" placeholder="请输入密码" v-model="password" show-password @keyup.enter.native="login"/>
           <el-button type="primary" size="small" class="modal-button" @click="login()">登 录</el-button>
           <div class="link-group">
             <div>
@@ -67,7 +67,7 @@ export default {
         const response = await userRegister(this.username, this.email, this.password);
         if (response.id !== null) {
          buildMessage('success', '注册成功');
-        } 
+        }
       } catch(error) {
         console.log(error);
         const { rawMessage } = parseErrorMsg(error);
@@ -81,8 +81,8 @@ export default {
           this.$store.state.showLoginModal = false;
           buildMessage('success', '登录成功');
           setTimeout(() => {this.$router.go(0)}, 1000);
-         
-        } 
+
+        }
       } catch(error) {
         console.log(error);
         const { rawMessage } = parseErrorMsg(error);
