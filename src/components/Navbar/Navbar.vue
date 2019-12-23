@@ -89,8 +89,9 @@ export default {
     },
     methods: {
         _onSubmit() {
+          //获取编辑器内的数据: <标签>内容</标签>
           this.$refs['editor'].getContent()
-          return
+        
           const Posts = AV.Object.extend('Posts');
           // 构建对象
           const post = new Posts();
@@ -129,7 +130,6 @@ export default {
         },
         callbackEditorData(data) {
           let content = data
-         
           this.mockCreation.content = content;
         }
     },
