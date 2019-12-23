@@ -1,3 +1,4 @@
+var AV = require('leancloud-storage');
 const categoryMapping = {
     'GeekCode': '5deb349dfbf47f006742a3ee',
     'GeekToBuy': '5deb3b65fc36ed0068604fbb',

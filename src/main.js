@@ -8,11 +8,11 @@ import './resources/elementUI';
 import Valine from 'valine';
 import { Message } from 'element-ui';
 import router from './router';
-// import http from './http';
-// Vue.prototype.$http = http;
 Vue.config.productionTip = false
 const APP_ID = 'E0zOYOk1h0wBAkNHwFeaS63z-gzGzoHsz';
 const APP_KEY = 'fdFmkUavVqNrbP2PC6NRsRUj';
+var AV = require('leancloud-storage');
+
 AV.init({
   appId: APP_ID,
   appKey: APP_KEY
@@ -30,27 +30,8 @@ Vue.mixin({
 
 // 挂载Valine为全局变量
 Vue.prototype.$Valine = Valine
-
-// router.beforeEach((to, from, next) => {
-//   if (to.matched.some(res => res.meta.requireAuth)) {
-//     if (localStorage.getItem('userName')) {
-//       next()
-//     } else {
-//       Message({
-//         message: "未登录, 请先登录",
-//         type: "warning"
-//     });
-//       next({
-//         path: '/login',
-//         query: {
-//           redirect: to.fullPath
-//         }
-//       })
-//     }
-//   } else {
-//     next()
-//   }
-// });
+// 挂载leancloud为全局变量, 如挂载到Vue原型上，会导致Valine无法使用
+window.AV = AV
 
 /* eslint-disable no-new */
 new Vue({

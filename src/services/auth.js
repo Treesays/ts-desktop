@@ -1,3 +1,4 @@
+var AV = require('leancloud-storage');
 const userRegister = (username, email, password) => {
     let user = new AV.User();
     user.setUsername(username);
