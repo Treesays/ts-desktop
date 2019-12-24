@@ -40,7 +40,7 @@
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="_onSubmit">立即创建</el-button>
-            <el-button @click="_onCancel">取消</el-button>
+            <el-button @click="drawer = false">取消</el-button>
           </el-form-item>
         </el-form>
       </el-drawer>
@@ -110,9 +110,6 @@ export default {
           }, function (error) {
             // 异常处理
           });
-        },
-        _onCancel() {
-          this.drawer = false
         },
         handleSelect(key, keyPath) {
             console.log(key, keyPath);
