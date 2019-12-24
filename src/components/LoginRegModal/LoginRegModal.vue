@@ -13,7 +13,7 @@
       <el-form class="modal-form">
         <!-- login -->
         <div v-if="isLoginActive">
-          <el-input size="small" placeholder="请输入邮箱" v-model="email" @keyup.enter.native="login"/>
+          <el-input size="small" placeholder="请输入邮箱" v-model="email"/>
           <el-input size="small" placeholder="请输入密码" v-model="password" show-password @keyup.enter.native="login"/>
           <el-button type="primary" size="small" class="modal-button" @click="login()">登 录</el-button>
           <div class="link-group">
