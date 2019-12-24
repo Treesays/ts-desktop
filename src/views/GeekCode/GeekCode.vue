@@ -4,10 +4,10 @@
             <el-tabs v-model="activeName" @tab-click="handleClick">
                 <el-tab-pane label="热门" name="hotPosts">
                     <div class="add-height" v-infinite-scroll="load" style="overflow-y:auto">
-                      <div v-for="post in hotPosts" :key="post.id" class="hc-post-layout">
-                          <Post :post="post" />
-                      </div>
-                      <div></div>
+                        <div v-for="post in hotPosts" :key="post.id" class="hc-post-layout">
+                            <Post :post="post" />
+                        </div>
+                        <div></div>
                     </div>
                 </el-tab-pane>
                 <el-tab-pane label="最新" name="newPosts">
@@ -47,7 +47,7 @@
                 </div>
             </el-card>
         </div>
-        
+
         <div></div>
     </div>
 </template>
@@ -118,7 +118,7 @@ export default {
             } = await fetchCategoryStats("GeekCode");
             this.followersCount = followers.length;
             this.postsCount = posts.length;
-            const _posts = await fetchPostsByCategory("GeekCode",4,2);
+            const _posts = await fetchPostsByCategory("GeekCode", 4, 2);
             if (_posts) {
                 this.posts = _posts.map(post => {
                     const {
@@ -150,15 +150,52 @@ export default {
                         id,
                         show
                     };
-                })
+                });
             }
         },
-        load() {
-            let limitNum = 4,skinNum=2
-            this.busy = true
-            if( this.busy) {
-            console.log('gunTMD')
-            // this.posts = fetchPostsByCategory("GeekCode",limitNum++,skinNum++);
+        async load() {
+            let limitNum = 4,
+                skinNum = 2;
+            this.busy = true;
+            if (this.busy) {
+                const _posts = await fetchPostsByCategory(
+                    "GeekCode",
+                    limitNum++,
+                    skinNum++
+                );
+                if (_posts) {
+                    this.posts = _posts.map(post => {
+                        const {
+                            _serverData: {
+                                category,
+                                content,
+                                username,
+                                position,
+                                workplace,
+                                avatar,
+                                tags,
+                                upCount,
+                                shareCount
+                            },
+                            id
+                        } = post;
+                        // 控制评论区域显示
+                        let show = false;
+                        return {
+                            category,
+                            content,
+                            username,
+                            position,
+                            workplace,
+                            avatar,
+                            tags,
+                            upCount,
+                            shareCount,
+                            id,
+                            show
+                        };
+                    });
+                }
             }
         }
     },
@@ -189,6 +226,6 @@ export default {
     background-position-x: 50%;
 }
 .add-height {
-    height:200px;
+    height: 200px;
 }
 </style>

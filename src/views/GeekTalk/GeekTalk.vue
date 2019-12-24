@@ -112,7 +112,7 @@ export default {
             } = await fetchCategoryStats("GeekTalk");
             this.followersCount = followers.length;
             this.postsCount = posts.length;
-            const _posts = await fetchPostsByCategory("GeekTalk");
+            const _posts = await fetchPostsByCategory("GeekTalk", 2, 1);
             if (_posts) {
                 this.posts = _posts.map(post => {
                     const {
