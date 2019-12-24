@@ -3,8 +3,11 @@
         <div class="hc-posts">
             <el-tabs v-model="activeName" @tab-click="handleClick">
                 <el-tab-pane label="热门" name="hotPosts">
-                    <div v-for="post in hotPosts" :key="post.id" class="hc-post-layout">
-                        <Post :post="post" />
+                    <div class="add-height" v-infinite-scroll="load" style="overflow-y:auto">
+                      <div v-for="post in hotPosts" :key="post.id" class="hc-post-layout">
+                          <Post :post="post" />
+                      </div>
+                      <div></div>
                     </div>
                 </el-tab-pane>
                 <el-tab-pane label="最新" name="newPosts">
@@ -44,6 +47,8 @@
                 </div>
             </el-card>
         </div>
+        
+        <div></div>
     </div>
 </template>
 
@@ -55,6 +60,7 @@ import {
     fetchCategoryStats,
     fetchPostsByCategory,
     followUnfollow,
+    getListbyCategory,
     isUserFollowedCategory
 } from "@/services/categoryManipulate.js";
 export default {
@@ -65,6 +71,7 @@ export default {
     data() {
         return {
             posts: null,
+            busy: false,
             followersCount: 0,
             postsCount: 0,
             isUserFollowedThisCategory: false,
@@ -111,7 +118,7 @@ export default {
             } = await fetchCategoryStats("GeekCode");
             this.followersCount = followers.length;
             this.postsCount = posts.length;
-            const _posts = await fetchPostsByCategory("GeekCode");
+            const _posts = await fetchPostsByCategory("GeekCode",4,2);
             if (_posts) {
                 this.posts = _posts.map(post => {
                     const {
@@ -143,7 +150,15 @@ export default {
                         id,
                         show
                     };
-                });
+                })
+            }
+        },
+        load() {
+            let limitNum = 4,skinNum=2
+            this.busy = true
+            if( this.busy) {
+            console.log('gunTMD')
+            // this.posts = fetchPostsByCategory("GeekCode",limitNum++,skinNum++);
             }
         }
     },
@@ -155,6 +170,7 @@ export default {
                 this.currentUserId
             );
         }
+        // getListbyCategory('GeekCode')
     }
 };
 </script>
@@ -171,5 +187,8 @@ export default {
     background-image: url("~@/assets/treesays_code.png");
     background-size: cover;
     background-position-x: 50%;
+}
+.add-height {
+    height:200px;
 }
 </style>

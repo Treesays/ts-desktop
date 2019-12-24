@@ -8,9 +8,9 @@ const fetchCategoryStats = (whichCategory) => {
     const query = new AV.Query('CagegoryStats');
     return query.first(query.equalTo('name', whichCategory));
 }
-const fetchPostsByCategory = (whichCategory) => {
+const fetchPostsByCategory = (whichCategory,limitNum,skipNum) => {
     const query = new AV.Query('Posts');
-    return query.find(query.equalTo('category', whichCategory ));
+    return query.find(query.equalTo('category', whichCategory ).limit(limitNum).skip(skipNum));
 }
 const followUnfollow = (whichCategory, userId) => {
     const categoryId = categoryMapping[whichCategory];
@@ -34,9 +34,14 @@ const isUserFollowedCategory = (whichCategory, userId) => {
             return data.attributes.followers.indexOf(userId) > -1;
         })
 }
+const getListbyCategory = (whichCategory) => {
+    const query = new AV.Query('Posts')
+    return query.find(query.equalTo('category', whichCategory ).limit(1).skip(2))
+}
 export {
     fetchCategoryStats,
     fetchPostsByCategory,
     followUnfollow,
+    getListbyCategory,
     isUserFollowedCategory
 }
