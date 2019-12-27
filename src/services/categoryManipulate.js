@@ -8,9 +8,10 @@ const fetchCategoryStats = (whichCategory) => {
     const query = new AV.Query('CagegoryStats');
     return query.first(query.equalTo('name', whichCategory));
 }
-const fetchPostsByCategory = (whichCategory) => {
+const fetchPostsByCategory = (whichCategory, pageNum = 0, pageSize = 7) => {
+    const skipHowManyPage = pageNum * pageSize;
     const query = new AV.Query('Posts');
-    return query.find(query.equalTo('category', whichCategory ));
+    return query.find(query.equalTo('category', whichCategory ).limit(pageSize).skip(skipHowManyPage));
 }
 const followUnfollow = (whichCategory, userId) => {
     const categoryId = categoryMapping[whichCategory];
@@ -34,9 +35,41 @@ const isUserFollowedCategory = (whichCategory, userId) => {
             return data.attributes.followers.indexOf(userId) > -1;
         })
 }
+const fromPostsAPIResponse = (post) => {
+    const {
+        _serverData: {
+          category,
+          content,
+          username,
+          position,
+          workplace,
+          avatar,
+          tags,
+          upCount,
+          shareCount
+        },
+        id
+      } = post;
+      // 控制评论区域显示
+      let show = false;
+      return {
+        category,
+        content,
+        username,
+        position,
+        workplace,
+        avatar,
+        tags,
+        upCount,
+        shareCount,
+        id,
+        show
+      };
+}
 export {
     fetchCategoryStats,
     fetchPostsByCategory,
     followUnfollow,
-    isUserFollowedCategory
+    isUserFollowedCategory,
+    fromPostsAPIResponse
 }
