@@ -33,7 +33,7 @@ export default {
     flex: 0 0 auto;
 }
 .heightFull {
-    flex: 1 1 auto;
+   flex: 1 1 auto;
 }
 
 footer {
