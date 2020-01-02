@@ -36,7 +36,7 @@
           </el-select>
           </el-form-item>
           <el-form-item label="帖子内容">
-            <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 200}" placeholder="请输入内容" v-model="mockCreation.content"></el-input>
+            <Editor ref="editor" @on-result="callbackEditorData"/>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="_onSubmit">立即创建</el-button>
@@ -51,10 +51,11 @@
 <script>
 import "./overwrite.css";
 import LoginRegModal from "@/components/LoginRegModal/LoginRegModal";
+import Editor from '@/components/Editor/Editor.vue';
 import { buildMessage } from "@/utils/messageBuilder.js";
 export default {
     name: "Navbar",
-    components: { LoginRegModal },
+    components: { LoginRegModal, Editor },
     data() {
         return {
             activeIndex: "1",
@@ -88,6 +89,8 @@ export default {
     },
     methods: {
         _onSubmit() {
+          this.$refs['editor'].getContent()
+          return
           const Posts = AV.Object.extend('Posts');
           // 构建对象
           const post = new Posts();
@@ -123,6 +126,11 @@ export default {
         logout() {
             AV.User.logOut();
             this.$router.go(0);
+        },
+        callbackEditorData(data) {
+          let content = data
+         
+          this.mockCreation.content = content;
         }
     },
     computed: {
