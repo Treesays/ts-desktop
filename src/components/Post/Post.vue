@@ -12,7 +12,7 @@
                 </div>
             </div>
             <div class="post-content">
-                <span>{{post.content}}</span>
+                <span v-html="post.content" />
             </div>
             <div class="post-tags">
                 <el-tag v-for="(tag, index) in post.tags" :key="index" size="small" effect="plain" class="post-tag">{{ tag }}</el-tag>

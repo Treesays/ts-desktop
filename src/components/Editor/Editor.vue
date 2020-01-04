@@ -13,7 +13,8 @@ export default {
   methods: {
     getContent() {
       let data = this.edit.getData();
-      this.$emit('on-result', data)
+      this.$emit('on-result', data);
+      return data.length;
     }
   },
   mounted () {

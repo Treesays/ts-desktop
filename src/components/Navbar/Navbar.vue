@@ -22,21 +22,21 @@
         </div>
       </div>
       <el-drawer title="发布动态" :visible.sync="drawer" direction="rtl">
-        <el-form :label-position="labelPosition" label-width="80px" style="margin: 16px;" :model="mockCreation">
+        <el-form :label-position="labelPosition" label-width="80px" style="margin: 16px;" :model="postCreation">
           <el-form-item label="工作单位">
-            <el-input v-model="mockCreation.workplace"></el-input>
+            <el-input v-model="postCreation.workplace"></el-input>
           </el-form-item>
           <el-form-item label="职位">
-            <el-input v-model="mockCreation.position"></el-input>
+            <el-input v-model="postCreation.position"></el-input>
           </el-form-item>
           <el-form-item label="分类">
-          <el-select v-model="mockCreation.category" placeholder="请选择...">
+          <el-select v-model="postCreation.category" placeholder="请选择...">
             <el-option v-for="item in categories" :key="item.value" :label="item.label" :value="item.value">
             </el-option>
           </el-select>
           </el-form-item>
           <el-form-item label="帖子内容">
-            <Editor ref="editor" @on-result="callbackEditorData"/>
+            <Editor ref="editor" @on-result="setEditorData" />
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="_onSubmit">立即创建</el-button>
@@ -61,7 +61,7 @@ export default {
             activeIndex: "1",
             drawer: false,
             labelPosition: "top",
-            mockCreation: {
+            postCreation: {
                 workplace: "蚂蚁金服",
                 position: "前端开发工程师",
                 category: "GeekTalk",
@@ -90,28 +90,31 @@ export default {
     methods: {
         _onSubmit() {
           //获取编辑器内的数据: <标签>内容</标签>
-          this.$refs['editor'].getContent()
-        
+          const dataToPost = this.$refs['editor'].getContent()
+          if (!dataToPost) {
+            buildMessage('warning', '帖子内容为空, 请输入帖子内容');
+            return;
+          };
           const Posts = AV.Object.extend('Posts');
           // 构建对象
           const post = new Posts();
           // 为属性赋值
           post.set('username', this.currentUser);
-          post.set('workplace', this.mockCreation.workplace);
-          post.set('position', this.mockCreation.position);
-          post.set('category', this.mockCreation.category);
-          post.set('content', this.mockCreation.content);
+          post.set('workplace', this.postCreation.workplace);
+          post.set('position', this.postCreation.position);
+          post.set('category', this.postCreation.category);
+          post.set('content', this.postCreation.content);
           post.set('avatar', 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png');
           post.set('tags', ['内部测试']);
           post.set('shareCount', 0);
           post.set('upCount', 0);
 
           // 将对象保存到云端
-          post.save().then(function (postContent) {
+          post.save().then((postContent) => {
             // 成功保存之后，执行其他逻辑
             buildMessage('success', `保存成功。objectId ${postContent.id}`);
             this.drawer = false
-          }, function (error) {
+          }, (error) => {
             // 异常处理
           });
         },
@@ -128,9 +131,8 @@ export default {
             AV.User.logOut();
             this.$router.go(0);
         },
-        callbackEditorData(data) {
-          let content = data
-          this.mockCreation.content = content;
+        setEditorData(data) {
+          this.postCreation.content = data;
         }
     },
     computed: {
