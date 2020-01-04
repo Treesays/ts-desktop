@@ -11,7 +11,7 @@ const fetchCategoryStats = (whichCategory) => {
 const fetchPostsByCategory = (whichCategory, pageNum = 0, pageSize = 7) => {
     const skipHowManyPage = pageNum * pageSize;
     const query = new AV.Query('Posts');
-    return query.find(query.equalTo('category', whichCategory ).limit(pageSize).skip(skipHowManyPage));
+    return query.find(query.descending('createdAt').equalTo('category', whichCategory ).limit(pageSize).skip(skipHowManyPage));
 }
 const followUnfollow = (whichCategory, userId) => {
     const categoryId = categoryMapping[whichCategory];
