@@ -6,7 +6,9 @@
           <div
             class="infiniteScrollWrapper"
             v-infinite-scroll="loadPosts"
-            :infinite-scroll-disabled="scrollDisabled"
+            infinite-scroll-disabled="scrollDisabled"
+            infinite-scroll-immediate="false"
+            infinite-scroll-distance="20"
           >
             <div v-for="post in hotPosts" :key="post.id" class="hc-post-layout">
               <Post :post="post" />
@@ -20,7 +22,9 @@
           <div
             class="infiniteScrollWrapper"
             v-infinite-scroll="loadPosts"
-            :infinite-scroll-disabled="scrollDisabled"
+            infinite-scroll-disabled="scrollDisabled"
+            infinite-scroll-immediate="false"
+            infinite-scroll-distance="20"
           >
             <div v-for="post in newPosts" :key="post.id" class="hc-post-layout">
               <Post :post="post" />

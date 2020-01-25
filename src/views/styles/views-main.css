@@ -278,6 +278,7 @@
 }
 
 .infiniteScrollWrapper {
+  height: 78vh;
   max-height: 78vh;
   overflow-y: auto;
 }
