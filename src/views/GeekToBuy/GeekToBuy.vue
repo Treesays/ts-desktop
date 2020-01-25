@@ -52,6 +52,7 @@ import Post from "@/components/Post/Post";
 import "@/resources/overwrite.css";
 import "@/views/styles/views-main.css";
 import {
+    fromPostsAPIResponse,
     fetchCategoryStats,
     fetchPostsByCategory,
     followUnfollow,
@@ -113,37 +114,7 @@ export default {
             this.postsCount = posts.length;
             const _posts = await fetchPostsByCategory("GeekToBuy");
             if (_posts) {
-                this.posts = _posts.map(post => {
-                    const {
-                        _serverData: {
-                            category,
-                            content,
-                            username,
-                            position,
-                            workplace,
-                            avatar,
-                            tags,
-                            upCount,
-                            shareCount
-                        },
-                        id
-                    } = post;
-                    // 控制评论区域显示
-                    let show = false;
-                    return {
-                        category,
-                        content,
-                        username,
-                        position,
-                        workplace,
-                        avatar,
-                        tags,
-                        upCount,
-                        shareCount,
-                        id,
-                        show
-                    };
-                });
+                this.posts = _posts.map(fromPostsAPIResponse);
             }
         }
     },

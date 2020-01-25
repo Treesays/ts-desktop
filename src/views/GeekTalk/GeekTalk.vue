@@ -4,7 +4,7 @@
       <el-tabs v-model="activeName" @tab-click="handleClick">
         <el-tab-pane label="热门" name="hotPosts">
           <div
-           class="infiniteScrollWrapper"
+            class="infiniteScrollWrapper"
             v-infinite-scroll="loadPosts"
             infinite-scroll-disabled="scrollDisabled"
           >
