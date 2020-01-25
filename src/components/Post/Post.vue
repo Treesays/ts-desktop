@@ -126,6 +126,9 @@ export default {
     } else {
       return;
     }
+  },
+  destroyed() {
+    window.onStorage = undefined;
   }
 };
 </script>
