@@ -1,5 +1,5 @@
-let moment = require('moment')
-moment.locale('zh-cn')
+const moment = require("moment");
+moment.locale("zh-cn");
 
 const categoryMapping = {
   GeekCode: "5deb349dfbf47f006742a3ee",
@@ -57,7 +57,7 @@ const fromPostsAPIResponse = post => {
       avatar,
       tags,
       upCount,
-      shareCount,
+      shareCount
     },
     id,
     createdAt

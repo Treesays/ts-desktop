@@ -3,13 +3,11 @@
     <div class="hc-post-item">
       <div class="user-info">
         <div class="user-avatar">
-          <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
+          <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"/>
         </div>
         <div class="author-info">
           <h3>{{post.username}}</h3>
-          <span>{{post.position}} @</span>
-          <span>{{post.workplace}}</span>
-          <span>{{post.createdAt}}</span>
+          <span>{{`${post.position} @${post.workplace} ${post.createdAt}`}}</span>
         </div>
       </div>
       <div class="post-content">
@@ -21,9 +19,9 @@
       </div>
       <div class="post-stats">
         <span>赞</span>
-        <el-divider class="post-stats-divider" direction="vertical"></el-divider>
+        <el-divider class="post-stats-divider" direction="vertical"/>
         <span @click="loadComments(post)">评论</span>
-        <el-divider class="post-stats-divider" direction="vertical"></el-divider>
+        <el-divider class="post-stats-divider" direction="vertical"/>
         <span>分享</span>
       </div>
     </div>
@@ -73,7 +71,7 @@
     },
     mounted() {
       // console.log(this.post);
-      
+
     }
   };
 </script>
