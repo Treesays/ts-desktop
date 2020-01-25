@@ -11,7 +11,7 @@
             infinite-scroll-distance="20"
           >
             <div v-for="post in hotPosts" :key="post.id" class="hc-post-layout">
-              <Post :post="post" />
+              <Post :post="post" :anonymous="true" />
             </div>
             <p v-if="loading" style="margin-top:10px;" class="loading">
               <span></span>
@@ -27,7 +27,7 @@
             infinite-scroll-distance="20"
           >
             <div v-for="post in newPosts" :key="post.id" class="hc-post-layout">
-              <Post :post="post" />
+              <Post :post="post" :anonymous="true" />
             </div>
             <p v-if="loading" style="margin-top:10px;" class="loading">
               <span></span>
