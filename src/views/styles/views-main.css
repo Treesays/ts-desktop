@@ -256,3 +256,29 @@
   justify-content: center;
 }
 
+.loading {
+  text-align: center;
+}
+.loading span {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #409eff;
+  border-left: transparent;
+  animation: spin 0.5s linear infinite;
+  border-radius: 50%;
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.infiniteScrollWrapper {
+  height: 78vh;
+  max-height: 78vh;
+  overflow-y: auto;
+}

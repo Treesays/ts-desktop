@@ -11,7 +11,7 @@ const fetchCategoryStats = whichCategory => {
   const query = new AV.Query("CagegoryStats");
   return query.first(query.equalTo("name", whichCategory));
 };
-const fetchPostsByCategory = (whichCategory, pageNum = 0, pageSize = 7) => {
+const fetchPostsByCategory = (whichCategory, pageNum = 0, pageSize = 10) => {
   const skipHowManyPage = pageNum * pageSize;
   const query = new AV.Query("Posts");
   return query.find(

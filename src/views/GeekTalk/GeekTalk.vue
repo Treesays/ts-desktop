@@ -7,6 +7,8 @@
             class="infiniteScrollWrapper"
             v-infinite-scroll="loadPosts"
             infinite-scroll-disabled="scrollDisabled"
+            infinite-scroll-immediate="false"
+            infinite-scroll-distance="20"
           >
             <div v-for="post in hotPosts" :key="post.id" class="hc-post-layout">
               <Post :post="post" />
@@ -16,11 +18,13 @@
             </p>
           </div>
         </el-tab-pane>
-
         <el-tab-pane label="最新" name="newPosts">
           <div
+            class="infiniteScrollWrapper"
             v-infinite-scroll="loadPosts"
             infinite-scroll-disabled="scrollDisabled"
+            infinite-scroll-immediate="false"
+            infinite-scroll-distance="20"
           >
             <div v-for="post in newPosts" :key="post.id" class="hc-post-layout">
               <Post :post="post" />
@@ -189,29 +193,5 @@ export default {
   background-image: url("~@/assets/treesays_talk.png");
   background-size: cover;
   background-position-x: 50%;
-}
-.loading {
-  text-align: center;
-}
-.loading span {
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  border: 2px solid #409eff;
-  border-left: transparent;
-  animation: spin 0.5s linear infinite;
-  border-radius: 50%;
-}
-@keyframes spin {
-  0% {
-    transform: rotate(0);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-.infiniteScrollWrapper {
-  max-height: 78vh;
-  overflow-y: auto;
 }
 </style>
